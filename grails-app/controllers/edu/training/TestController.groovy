@@ -349,4 +349,16 @@ class TestController {
         return [data3: 3]
     }
 
+
+    TestService testService
+
+    def testRollBack = {
+
+
+        def user = testService.testRollBack()
+
+        println("errors: ${user?.errors}")
+
+        render user?.id
+    }
 }

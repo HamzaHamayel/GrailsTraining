@@ -14,7 +14,7 @@ class ProfileController {
     // list action has no restrictions
     // delete action may be invoked from a DELETE
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+//    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     //multiple values (delete action may be invoked from a POST or DELETE)
     //static allowedMethods = [delete:['POST', 'DELETE']]

@@ -59,4 +59,48 @@ class TestService {
     }
 
 
+    def testRollBack(){
+
+        User user
+        Profile profile
+//        try{
+
+            user = new User()
+            user.userId = "abc2"
+            user.password = "abcabc"
+            user.save(flush:true)
+
+            println("user: ${user?.id}")
+
+             profile = new Profile()
+            profile.fullName = "full name"
+            //profile.country = Country.findByCode("ps")
+            profile.user = user
+            profile.dateOfBirth = Date.newInstance()
+
+        profile.validate()
+
+        if(!profile.hasErrors()){
+            profile.save()
+        }else{
+
+           // transactionStatus.setRollbackOnly()
+        }
+
+
+//        }catch (Exception e){
+//            println("error")
+//            transactionStatus.setRollbackOnly()
+//        }
+
+        println("profile: ${profile?.errors}")
+
+
+        return user
+
+
+
+    }
+
+
 }

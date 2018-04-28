@@ -16,7 +16,7 @@ class ProfileService {
         String fullName = params["fullName"]
         Long id = params.long("id")
         Double salary = params.double("salary")
-        Date dateOfBirth = params.date("dateOfBirth","dd/MM/yyyy")
+        Date dateOfBirth //= params.date("dateOfBirth","dd/MM/yyyy")
 
 
 

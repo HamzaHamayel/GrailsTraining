@@ -27,6 +27,7 @@
             </ul>
             </g:hasErrors>
             <g:form method="PUT" action="update">
+                <g:hiddenField name="id" value="${this.profile?.id}" />
                 <g:hiddenField name="version" value="${this.profile?.version}" />
                 <fieldset class="form">
                     <f:all bean="profile"/>
