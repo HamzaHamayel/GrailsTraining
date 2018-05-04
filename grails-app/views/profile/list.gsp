@@ -56,6 +56,13 @@
             </th>
 
 
+
+
+            <th>
+                <g:message code="profile.salary.label" default="salary" />
+            </th>
+
+
             <th>
                 <g:message code="profile.dateOfBirth.label" default="dateOfBirth" />
             </th>
@@ -78,8 +85,15 @@
                 <td>${profile?.email}</td>
                 <td>${profile?.timezone}</td>
                 <td>${profile?.address}</td>
-                <td>${profile?.country}</td>
-                <td>${profile?.dateOfBirth}</td>
+                <td>${profile?.country?.name}</td>
+
+                <td>
+                    %{--<g:formatNumber number="${profile?.salary}" format="###,##0" />--}%
+                    %{--<g:formatNumber number="${profile?.salary}" type="currency" currencyCode="USD" />--}%
+                    <g:formatNumber number="${profile?.salary}" type="number" maxFractionDigits="2" />
+                </td>
+
+                <td>${profile?.dateOfBirth?.format("dd/MM/yyyy")}</td>
                 <td>
                     <g:link action="show" id="${profile?.id}" >
                         <g:message code="default.show.label" args="${message(code:'profile.label')}"/>
