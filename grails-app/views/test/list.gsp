@@ -6,52 +6,25 @@
 </head>
 <body>
 
+
+
+
 <div id="content" role="main">
     <section class="row colset-2-its">
         <h1>Available Links</h1>
 
         <div id="controllers" role="navigation">
+            <g:set var="actions" value="${grailsApplication.controllerClasses.find{it.logicalPropertyName == "test"}.clazz.methods.findAll { it.getAnnotation(grails.web.Action) }?.sort{it.name}}" />
             <ul>
-                <li class="controller">
-                    <g:link action="testQuery" >
-                        Test Query
-                    </g:link>
-                </li>
-
-                <li class="controller">
-                    <g:link action="testError" >
-                        Test Error
-                    </g:link>
-                </li>
-
-
-                <li class="controller">
-                    <g:link action="testScope" >
-                        Test Scope
-                    </g:link>
-                </li>
-
-
-                <li class="controller">
-                    <g:link action="testData" >
-                        Test Data
-                    </g:link>
-                </li>
-
-                <li class="controller">
-                    <g:link action="testDataCustom" >
-                        Test Data Custom
-                    </g:link>
-                </li>
-
-                <li class="controller">
-                    <g:link action="testChain" >
-                        Test Data Chain
-                    </g:link>
-                </li>
-
-
-
+                <g:each in="${actions}" var="actionIns">
+                    <g:if test="${!(actionIns?.name in ['list','index','renderTemplateOrTagLib'])}">
+                    <li class="controller">
+                        <g:link action="${actionIns?.name}" >
+                            ${actionIns?.name}
+                        </g:link>
+                    </li>
+                    </g:if>
+                </g:each>
             </ul>
         </div>
     </section>

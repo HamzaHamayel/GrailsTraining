@@ -1,14 +1,19 @@
 package edu.training
 
+import grails.converters.JSON
+import grails.converters.XML
 import grails.gorm.DetachedCriteria
-import grails.gorm.transactions.Transactional
 import groovy.sql.Sql
-import org.hibernate.criterion.Subqueries
+import org.springframework.core.io.Resource
 import org.springframework.web.servlet.ModelAndView
+
+import javax.swing.text.html.HTML
 
 class TestController {
 
     def dataSource
+    TestService testService
+    def assetResourceLocator
 
     def index() {
         redirect(action:"list")
@@ -350,10 +355,7 @@ class TestController {
     }
 
 
-    TestService testService
-
     def testRollBack = {
-
 
         def user = testService.testRollBack()
 
@@ -361,4 +363,174 @@ class TestController {
 
         render user?.id
     }
+
+
+    def renderData = {
+        def profiles = Profile.list()
+        if(params.type == "xml"){
+            render profiles as XML
+        }
+
+
+        else if(params.type == "html"){
+            render profiles as HTML
+        }
+
+
+        else if(params.type == "byte"){
+            Resource resource = assetResourceLocator.findAssetForURI('skin/house.png')
+            byte[] fileBytes = resource.getInputStream()?.bytes
+            if(params.save){
+                response.setContentType("APPLICATION/OCTET-STREAM")
+                response.setHeader("Content-Disposition", "Attachment;Filename=\"houseDownload.png\"")
+            }
+            response.outputStream << fileBytes
+        }
+
+
+        else if(params.type == "respond"){
+            respond profiles
+        }
+
+        else if(params.type == "respondOne"){
+            respond Profile.first()
+        }
+
+
+        else if(params.type == "withFormat"){
+            withFormat {
+                js { render "alert('hello')" }
+                xml { render profiles as XML }
+                json { render profiles as JSON }
+            }
+        }
+
+
+
+        else{
+            render profiles as JSON
+        }
+
+
+
+    }
+
+
+    def testBindData = {
+
+        //One
+        User user = new User()
+        params.userId = "userId"
+        params.password = "password"
+        params.homepage = "homepage"
+
+        params["profile.fullName"] = "fullName"
+        params["profile.bio"] = "bio"
+        params["profile.email"] = "email@email.com"
+        params["profile.salary"] = "1000"
+        params["profile.dateOfBirth"] = "01/01/1990"
+        params["profile.country.id"] = Country.first()
+
+
+        bindData(user,params)
+        bindData(user,params,"profile")
+
+//        bindData(user,params,[exclude:["homepage"]])
+
+
+        //Two
+//        Map data = [userId:"userId",password:"password",homepage:"homepage"]
+        Map data = [userId:"userId",password:"password",homepage:"homepage",profile:[fullName:"fullName",bio:"bio"]]
+//        User user = new User(data)
+
+        println("userId: ${user?.userId}")
+        println("password: ${user?.password}")
+        println("homepage: ${user?.homepage}")
+
+        println("profile: ${user?.profile}")
+
+        render "done"
+    }
+
+    def testBindMany = {
+
+        User user = User.first()
+
+
+        //One
+        params.content = "content"
+        params["user.id"] = user?.id
+        params["classification"] = "POST"
+
+
+        params["tags[0].name"] = "name1"
+        params["tags[0].classification"] = "TAG"
+        params["tags[0].user.id"] = user?.id
+
+        params["tags[1].name"] = "name2"
+        params["tags[1].classification"] = "TAG"
+        params["tags[1].user.id"] = user?.id
+
+        Post post = new Post()
+        bindData(post,params)
+
+
+        //Two
+//        Map data = [
+//                content:"content",user:user,classification:"POST",
+//                "tags[0]":[name:"name1",user:user,classification:"TAG"],
+//                "tags[1]":[name:"name2",user:user,classification:"TAG"],
+//        ]
+//        Post post = new Post(data)
+
+
+        println("post: ${post}")
+        println("tags: ${post?.tags}")
+
+
+        render "done"
+
+    }
+
+
+    def testView = {
+
+    }
+
+
+    def testViewGrails = {
+
+        return [
+                users:User.list(),
+                user:User.first(),
+                profile:Profile.first(),
+                role:'admin',
+                textFieldValue: g.textField(name:"name")?.toString()
+        ]
+
+    }
+
+
+    def testLayout = {
+
+    }
+
+    def testTemplate = {
+
+    }
+
+    def testRender = {
+
+    }
+
+    def testTags = {
+
+    }
+
+    def renderTemplateOrTagLib = {
+        //you can render it when use ajax request with html response
+//        render g.textField(name:"name")
+        render (template: '/template/text',model: [data:'123'])
+    }
+
 }

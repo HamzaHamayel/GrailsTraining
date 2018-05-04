@@ -15,4 +15,9 @@ class Tag extends Transaction{
     static mapping = {
         version false
     }
+
+    @Override
+    public String toString() {
+        return "name: $name for user: $user"
+    }
 }
