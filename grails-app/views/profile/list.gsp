@@ -88,12 +88,13 @@
                 <td>${profile?.country?.name}</td>
 
                 <td>
-                    %{--<g:formatNumber number="${profile?.salary}" format="###,##0" />--}%
+                    <g:formatNumber number="${profile?.salary}" format="###,##0" />
                     %{--<g:formatNumber number="${profile?.salary}" type="currency" currencyCode="USD" />--}%
-                    <g:formatNumber number="${profile?.salary}" type="number" maxFractionDigits="2" />
+                    %{--<g:formatNumber number="${profile?.salary}" type="number" maxFractionDigits="3" />--}%
+                    %{--<g:formatNumber number="${profile?.salary}" type="number" maxIntegerDigits="3" />--}%
                 </td>
 
-                <td>${profile?.dateOfBirth?.format("dd/MM/yyyy")}</td>
+                <td>${profile?.dateOfBirth?.format("dd/MM/yy")}</td>
                 <td>
                     <g:link action="show" id="${profile?.id}" >
                         <g:message code="default.show.label" args="${message(code:'profile.label')}"/>

@@ -14,8 +14,11 @@ class TestTagLib extends org.grails.plugins.web.taglib.FormTagLib{
      * @attr value REQUIRED
      * @attr value2
      * @attr value3
+     * @attr var
      */
     def example = { attrs, body ->
+
+        def var = attrs.var
 
         out << "<div>"
         out << attrs["value"]

@@ -96,6 +96,11 @@
               ]"
     />
 
+    <g:set var="userList" value="${ edu.training.User.findAllByIdNotInList(edu.training.Profile.list()?.user?.id)}"/>
+    <g:if test="${profile?.id != null}">
+        <g:set var="userList" value="${[profile?.user]}"/>
+    </g:if>
+
     <g:render template="/template/shared/selectComponent"
 
               model="[
@@ -106,7 +111,7 @@
                       labelFieldName:'user',
                       fieldName:'user.id',
                       fieldValue:profile?.user?.id,
-                      dataList:[profile?.user],
+                      dataList:userList,
                       optionKey:'id',
                       optionValue:'userId',
               ]"

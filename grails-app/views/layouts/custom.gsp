@@ -12,12 +12,16 @@
 </head>
 <body>
 
-<p>before layout body</p>
+
+<asset:image src="grails.svg" alt="Grails Logo"/>
+
+
+<p>Body cont 1</p>
 
 
 <g:layoutBody/>
 
-<p>after layout body</p>
+<p>Body cont final</p>
 
 
 <asset:javascript src="application.js"/>

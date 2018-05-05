@@ -1,4 +1,6 @@
 <g:set var="hasError"  value="${object?.errors?.allErrors?.findAll{it.field == fieldName}?.size() > 0}" />
+
+
 <div class="fieldcontain ${isRequired?' required':''} ${hasError==true?' error':''} " >
    <g:render template="/template/shared/labelComponent"
              model="[isRequired:isRequired,

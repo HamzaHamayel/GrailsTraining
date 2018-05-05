@@ -14,11 +14,11 @@
 
 **************tag lib**********************
 <%-- tag lib --%>
-<g:example value="test1"/>
+<custom:example value="test1" value2="" value3="" var="123"/>
 
-<g:example value="test2">
+<custom:example value="test2">
     </p>body value</p>
-</g:example>
+</custom:example>
 
 
 ****************create server variable********************

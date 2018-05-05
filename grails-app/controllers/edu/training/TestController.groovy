@@ -354,6 +354,11 @@ class TestController {
         return [data3: 3]
     }
 
+    //bind data -> bindData(profile,params)
+    def test(Profile profile){
+
+    }
+
 
     def testRollBack = {
 
@@ -367,6 +372,9 @@ class TestController {
 
     def renderData = {
         def profiles = Profile.list()
+
+//        profiles.collect{return [user:it.user]}
+
         if(params.type == "xml"){
             render profiles as XML
         }
@@ -424,16 +432,16 @@ class TestController {
         params.password = "password"
         params.homepage = "homepage"
 
-        params["profile.fullName"] = "fullName"
-        params["profile.bio"] = "bio"
-        params["profile.email"] = "email@email.com"
-        params["profile.salary"] = "1000"
-        params["profile.dateOfBirth"] = "01/01/1990"
-        params["profile.country.id"] = Country.first()
+        params["profile1.fullName"] = "fullName"
+        params["profile1.bio"] = "bio"
+        params["profile1.email"] = "email@email.com"
+        params["profile1.salary"] = "1000"
+        params["profile1.dateOfBirth"] = "01/01/1990"
+        params["profile1.country.id"] = Country.first()
 
 
         bindData(user,params)
-        bindData(user,params,"profile")
+//        bindData(user.profile,params,"profile1")
 
 //        bindData(user,params,[exclude:["homepage"]])
 
