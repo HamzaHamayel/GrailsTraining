@@ -4,6 +4,17 @@
 <fieldset class="form">
 
 
+    <g:render template="/template/shared/uploadComponent"
+
+              model="[
+                      object:profile,
+                      objectKey:objectName,
+                      fieldName:'multipartFile',
+                      fieldValueName:'photo'
+              ]"
+    />
+
+
     <g:render template="/template/shared/textComponent"
 
               model="[

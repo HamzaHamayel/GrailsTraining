@@ -10,6 +10,10 @@ class Post extends Transaction {
         content(blank: false,maxSize: 1024)
     }
 
+    public Post(){
+        classification = TransactionClassification.POST
+    }
+
 
     @Override
     public String toString() {

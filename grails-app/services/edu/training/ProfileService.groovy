@@ -1,15 +1,22 @@
 package edu.training
 
+import grails.converters.JSON
+import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
 import grails.orm.PagedResultList
 import grails.web.servlet.mvc.GrailsParameterMap
+import org.grails.web.util.WebUtils
+import org.springframework.web.multipart.MultipartFile
+
+import java.text.DecimalFormat
 
 @Transactional
 class ProfileService {
 
-    @Transactional(readOnly = true)
-    PagedResultList search(GrailsParameterMap params){
+    GrailsApplication grailsApplication
 
+    @Transactional(readOnly = true)
+    PagedResultList search(GrailsParameterMap params) {
 
         Integer max = params.int("max")
         Integer offset = params.int("offset")
@@ -17,25 +24,45 @@ class ProfileService {
         Long id = params.long("id")
         Double salary = params.double("salary")
         Date dateOfBirth //= params.date("dateOfBirth","dd/MM/yyyy")
+        String q = params["q"]
+        String sSearch = params["sSearch"]
+        Double sSearchInt = params.double("sSearch")
+        String orderBy = params["orderBy"]
+        String orderDirection = params["dir"]
 
 
 
+        PagedResultList result = Profile.createCriteria().list(offset: offset, max: max) {
 
-        PagedResultList result = Profile.createCriteria().list (offset:offset,max:max) {
-
-            if(id){
-                eq("id",id)
-            }
-            if(salary){
-                eq("salary",salary)
-            }
-
-            if(dateOfBirth){
-                ge("id",dateOfBirth)
+            if (q) {
+                like("fullName", "%${q}%")
             }
 
-            if(fullName){
-                like("fullName","%${fullName}%")
+            if (sSearch) {
+                or {
+                    like("fullName", "%${sSearch}%")
+                    eq("salary", sSearchInt)
+
+                }
+            }
+
+            if (id) {
+                eq("id", id)
+            }
+            if (salary) {
+                eq("salary", salary)
+            }
+
+            if (dateOfBirth) {
+                ge("id", dateOfBirth)
+            }
+
+            if (fullName) {
+                like("fullName", "%${fullName}%")
+            }
+
+            if(orderBy && orderDirection){
+                order(orderBy,orderDirection)
             }
 
         }
@@ -66,6 +93,10 @@ class ProfileService {
             }
 
             profile.properties = params
+
+            MultipartFile multipartFile = WebUtils.retrieveGrailsWebRequest().getCurrentRequest().getFile('multipartFile')
+            profile.photo = multipartFile?.bytes
+
             profile.save(flush: true, failOnError: true)
         } catch (Exception e) {
             e.printStackTrace()
@@ -87,6 +118,30 @@ class ProfileService {
         } catch (Exception e) {
         }
         return deleted
+    }
+
+    String renderDataTableData(GrailsParameterMap params){
+        PagedResultList pagedResultList = this.search(params)
+        def g = grailsApplication.mainContext.getBean('org.grails.plugins.web.taglib.FormatTagLib')
+
+        Map map = [:]
+        map.data = pagedResultList.collect{Profile profile->
+            return [
+                    id:profile?.id,
+                    user:profile?.user?.userId,
+                    fullName:profile?.fullName,
+                    bio:profile?.bio,
+                    email:profile?.email,
+                    timezone:profile?.timezone,
+                    country:profile?.country?.name,
+                    salary: g.formatNumber(number:profile?.salary,format:'###,##0'),
+                    dateOfBirth:profile?.dateOfBirth?.format("dd/MM/yyyy"),
+            ]
+        }
+        map.draw = params.draw
+        map.recordsTotal = pagedResultList?.totalCount
+        map.recordsFiltered = pagedResultList?.totalCount
+        return map as JSON
     }
 
 }

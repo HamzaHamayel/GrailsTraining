@@ -27,7 +27,7 @@
             </ul>
             </g:hasErrors>
 
-            <g:form action="update" method="PUT">
+            <g:form name="userForm" action="update" method="PUT">
                 <g:hiddenField name="id" value="${this.user?.id}" />
                 <g:hiddenField name="version" value="${this.user?.version}" />
                 <g:render template="/user/form" model="[user:user]" />

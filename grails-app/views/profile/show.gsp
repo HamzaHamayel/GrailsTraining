@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="show" />
         <g:set var="entityName" value="${message(code: 'profile.label', default: 'Profile')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
@@ -19,7 +19,27 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="profile" />
+
+
+            <li class="fieldcontain">
+                <span id="dateOfBirth-label" class="property-label">
+                    photo
+                </span>
+                <div class="property-value" aria-labelledby="photo-label">
+                    <div id="imageView">
+
+                    </div>
+                </div>
+            </li>
+
+
+            <f:display bean="profile" except="photo" />
+
+
+
+        </div>
+
+
             <g:form resource="${this.profile}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.profile}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
@@ -27,5 +47,19 @@
                 </fieldset>
             </g:form>
         </div>
+
+    <g:if test="${profile?.id && profile?.photo}">
+        <script type="text/javascript">
+            var img = $("<img />").attr('src', '${createLink(controller: 'profile',action: 'loadImage')}/${profile?.id}')
+                .on('load', function() {
+                    if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                        alert('broken image!');
+                    } else {
+                        $("#imageView").append(img);
+                    }
+                });
+        </script>
+    </g:if>
+
     </body>
 </html>

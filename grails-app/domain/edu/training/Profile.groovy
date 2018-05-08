@@ -48,6 +48,7 @@ class Profile {
 
     static mapping = {
         description type: 'text',sqlType: "CLOB"
+        photo sqlType: "BLOB"
     }
 
 

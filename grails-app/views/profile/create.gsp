@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main" />
+    <meta name="layout" content="form" />
     <g:set var="entityName" value="${message(code: 'profile.label', default: 'Profile')}" />
     <title><g:message code="default.create.label" args="[entityName]" /></title>
 </head>
@@ -32,12 +32,12 @@
         </ul>
     </g:hasErrors>
 
-    <g:form method="POST" action="save">
+    <g:uploadForm action="save">
         <g:render template="/profile/form" model="[profile:profile]"/>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
         </fieldset>
-    </g:form>
+    </g:uploadForm>
 
 
 

@@ -134,7 +134,7 @@ environments:
                 minIdle: 5
                 maxIdle: 25
                 maxWait: 10000
-                maxAge: 600000
+                maxAge: 10 * 60000
                 timeBetweenEvictionRunsMillis: 5000
                 minEvictableIdleTimeMillis: 60000
                 validationQuery: SELECT 1
@@ -145,3 +145,9 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+grails:
+ controllers:
+  upload:
+    maxFileSize: 26214400
+    maxRequestSize: 26214400

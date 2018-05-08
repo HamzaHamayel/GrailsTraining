@@ -527,11 +527,12 @@ class TestController {
 
     }
 
-    def testRender = {
+    def testTags = {
 
     }
 
-    def testTags = {
+    //session 6
+    def testAjax = {
 
     }
 
@@ -539,6 +540,14 @@ class TestController {
         //you can render it when use ajax request with html response
 //        render g.textField(name:"name")
         render (template: '/template/text',model: [data:'123'])
+    }
+
+    def testAutoComplete = {
+
+    }
+
+    def testCommand = {
+        redirect(controller:'registration',action: 'create')
     }
 
 }

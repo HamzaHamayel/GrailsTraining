@@ -15,7 +15,7 @@ class BootStrap {
             Country egCountry = Country.findOrSaveByCodeAndName("eg","Egypt")
 
             //user
-            User ahmadUser = User.findByUserId("ahmad")?:new User(userId:"ahmad",password:"password").save(flush:true,failOnError:true)
+                User ahmadUser = User.findByUserId("ahmad")?:new User(userId:"ahmad",password:"password").save(flush:true,failOnError:true)
             User aliUser = User.findByUserId("ali")?:new User(userId:"ali",password:"password").save(flush:true,failOnError:true)
             User danaUser = User.findByUserId("dana")?:new User(userId:"dana",password:"password").save(flush:true,failOnError:true)
 

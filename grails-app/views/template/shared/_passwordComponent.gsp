@@ -1,4 +1,4 @@
-<div class="fieldcontain ${isRequired?'required':''}">
+<div id="fieldcontain_${fieldName}" class="fieldcontain ${isRequired?'required':''}">
 
    <g:render template="/template/shared/labelComponent"
              model="[isRequired:isRequired,

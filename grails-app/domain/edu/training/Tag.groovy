@@ -16,6 +16,10 @@ class Tag extends Transaction{
         version false
     }
 
+    public Tag(){
+        classification = TransactionClassification.TAG
+    }
+
     @Override
     public String toString() {
         return "name: $name for user: $user"

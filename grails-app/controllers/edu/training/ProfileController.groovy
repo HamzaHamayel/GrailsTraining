@@ -1,6 +1,9 @@
 package edu.training
 
+import grails.converters.JSON
 import grails.orm.PagedResultList
+import org.springframework.core.io.Resource
+
 import static org.springframework.http.HttpStatus.*
 
 class ProfileController {
@@ -26,13 +29,21 @@ class ProfileController {
 
     def list = {
         //params (hash map from client that contains all parameters from client)
-        PagedResultList pagedResultList = profileService.search(params)
-        return [profileList:pagedResultList,profileCount:pagedResultList?.totalCount]
+//        PagedResultList pagedResultList = profileService.search(params)
+//        return [profileList:pagedResultList,profileCount:pagedResultList?.totalCount]
+    }
+
+
+    def filter = {
+        render profileService.renderDataTableData(params)
     }
 
     def show = {
-        //respond (hash map from server to client)
-        respond profileService.get(params)
+        if (params.long("id")) {
+            respond profileService.get(params)
+        }else{
+            notFound()
+        }
     }
 
     def create(){
@@ -72,11 +83,27 @@ class ProfileController {
     def delete = {
         Boolean deleted = profileService.delete(params)
         if(deleted){
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'profile.label', default: 'Profile'), params.id])
             redirect(action: "list")
         }else{
             notFound()
         }
+    }
+
+    def autoComplete = {
+        render profileService.search(params)?.collect{return [value:it.id,text:it.fullName]} as JSON
+    }
+
+    def loadImage = {
+        println("load image")
+        Profile profile = profileService.get(params)
+        if(profile){
+            byte[] fileBytes = profile?.photo
+            response.outputStream << fileBytes
+        }else{
+            render ""
+        }
+
     }
 
     protected void notFound() {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="form" />
         <g:set var="entityName" value="${message(code: 'profile.label', default: 'Profile')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
@@ -28,7 +28,7 @@
             </g:hasErrors>
 
 
-            <g:form method="PUT" action="update">
+            <g:uploadForm action="update">
                 <g:hiddenField name="id" value="${this.profile?.id}" />
                 <g:hiddenField name="version" value="${this.profile?.version}" />
 
@@ -38,7 +38,7 @@
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>
 
-            </g:form>
+            </g:uploadForm>
 
 
 

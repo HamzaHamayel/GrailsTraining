@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main" />
+    <meta name="layout" content="table" />
     <g:set var="entityName" value="${message(code: 'profile.label', default: 'Profile')}" />
     <title><g:message code="default.list.label" args="[entityName]" /></title>
 </head>
@@ -20,101 +20,22 @@
     </g:if>
 
 
+    <g:render template="/template/shared/dataTable" model="[
+            controller:'profile',
+            action:'filter',
+            columns:[
+                    [key:'id',value:'id'],
+                    [key:'user',value:message(code:'profile.user.label',default: 'user')],
+                    [key:'fullName',value:message(code:'profile.fullName.label',default: 'fullName')],
+                    [key:'bio',value:message(code:'profile.bio.label',default: 'bio')],
+                    [key:'email',value:message(code:'profile.email.label',default: 'email')],
+                    [key:'timezone',value:message(code:'profile.timezone.label',default: 'timezone')],
+                    [key:'country',value:message(code:'profile.country.label',default: 'country')],
+                    [key:'salary',value:message(code:'profile.salary.label',default: 'salary')],
+                    [key:'dateOfBirth',value:message(code:'profile.dateOfBirth.label',default: 'dateOfBirth')],
+            ]
+    ]"/>
 
-
-    <table>
-        <thead>
-        <tr>
-
-
-            <th>
-                <g:message code="profile.user.label" default="user" />
-            </th>
-
-
-            <th>
-                <g:message code="profile.fullName.label" default="fullName" />
-            </th>
-
-
-            <th>
-                <g:message code="profile.bio.label" default="bio" />
-            </th>
-
-
-            <th>
-                <g:message code="profile.email.label" default="email" />
-            </th>
-
-            <th>
-                <g:message code="profile.timezone.label" default="timezone" />
-            </th>
-
-
-            <th>
-                <g:message code="profile.country.label" default="country" />
-            </th>
-
-
-
-
-            <th>
-                <g:message code="profile.salary.label" default="salary" />
-            </th>
-
-
-            <th>
-                <g:message code="profile.dateOfBirth.label" default="dateOfBirth" />
-            </th>
-
-
-            <th>
-            </th>
-
-
-
-        </tr>
-        </thead>
-        <tbody>
-
-
-        <g:each in="${profileList}" var="profile" status="index">
-            <tr class="${index%2 == 0 ? 'even': 'odd'}">
-                <td>${profile?.user}</td>
-                <td>${profile?.bio}</td>
-                <td>${profile?.email}</td>
-                <td>${profile?.timezone}</td>
-                <td>${profile?.address}</td>
-                <td>${profile?.country?.name}</td>
-
-                <td>
-                    <g:formatNumber number="${profile?.salary}" format="###,##0" />
-                    %{--<g:formatNumber number="${profile?.salary}" type="currency" currencyCode="USD" />--}%
-                    %{--<g:formatNumber number="${profile?.salary}" type="number" maxFractionDigits="3" />--}%
-                    %{--<g:formatNumber number="${profile?.salary}" type="number" maxIntegerDigits="3" />--}%
-                </td>
-
-                <td>${profile?.dateOfBirth?.format("dd/MM/yy")}</td>
-                <td>
-                    <g:link action="show" id="${profile?.id}" >
-                        <g:message code="default.show.label" args="${message(code:'profile.label')}"/>
-                    </g:link>
-                </td>
-
-            </tr>
-
-        </g:each>
-
-        </tbody>
-    </table>
-
-
-
-    %{--<f:table collection="${profileList}" />--}%
-
-    <div class="pagination">
-        <g:paginate total="${profileCount ?: 0}" />
-    </div>
 </div>
 </body>
 </html>
