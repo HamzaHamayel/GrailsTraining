@@ -5,7 +5,9 @@
    <g:render template="/template/shared/labelComponent"
              model="[isRequired:isRequired,
                      objectKey:objectKey,
-                     fieldName:fieldName]"/>
+                     fieldName:fieldName,
+                     labelValue:labelValue
+             ]"/>
 
     <g:textField name="${fieldRealName?:fieldName}" value="${fieldValue?:(object?."${fieldName}")}" isRequired="${isRequired}" class="${clazz}"/>
 

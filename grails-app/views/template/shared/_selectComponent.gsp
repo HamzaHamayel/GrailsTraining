@@ -8,10 +8,13 @@
     <g:select noSelection="['':message(code:'select.label',default: 'select')]" from="${dataList}"
               optionKey="${optionKey}"
               optionValue="${optionValue}"
+              id="${fieldId?:fieldName}"
               name="${fieldName}"
               value="${fieldValue}"
               isRequired="${isRequired}"
               isDisabled="${isDisabled}"
-              isReadOnly="${isReadOnly}"/>
+              isReadOnly="${isReadOnly}"
+              onchange="${onChange}"
+    />
 
 </div>
