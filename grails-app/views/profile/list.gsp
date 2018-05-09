@@ -20,11 +20,29 @@
     </g:if>
 
 
+
+    <g:form name="searchForm" >
+
+        <fieldset class="form">
+        fullName: <g:textField name="fullName" />
+        salary: <g:textField name="salary" />
+        bio: <g:textField name="bio" />
+        email: <g:textField name="email" />
+        timezone: <g:textField name="timezone" />
+        address: <g:textField name="address" />
+        applicationName: <g:textField name="applicationName" />
+        </fieldset>
+
+        <button type="button" onclick="_myDataTable.draw();" >search</button>
+    </g:form>
+
+
     <g:render template="/template/shared/dataTable" model="[
             controller:'profile',
             action:'filter',
+            searchFrom:'searchForm',
             columns:[
-                    [key:'id',value:'id'],
+                    [key:'id',value:'id',visible:'false'],
                     [key:'user',value:message(code:'profile.user.label',default: 'user')],
                     [key:'fullName',value:message(code:'profile.fullName.label',default: 'fullName')],
                     [key:'bio',value:message(code:'profile.bio.label',default: 'bio')],

@@ -29,6 +29,13 @@ class ProfileService {
         Double sSearchInt = params.double("sSearch")
         String orderBy = params["orderBy"]
         String orderDirection = params["dir"]
+        Long userId = params.long("userId")
+
+        String applicationName = params["applicationName"]
+        String bio = params["bio"]
+        String email = params["email"]
+        String timezone = params["timezone"]
+        String address = params["address"]
 
 
 
@@ -46,6 +53,22 @@ class ProfileService {
                 }
             }
 
+            if(userId || applicationName){
+
+                user {
+                    if (userId) {
+                        eq('id', userId)
+                    }
+
+
+                    if (applicationName) {
+                        like("applicationName", "%${applicationName}%")
+                    }
+                }
+            }
+
+
+
             if (id) {
                 eq("id", id)
             }
@@ -55,6 +78,23 @@ class ProfileService {
 
             if (dateOfBirth) {
                 ge("id", dateOfBirth)
+            }
+
+
+            if (bio) {
+                like("bio", "%${bio}%")
+            }
+
+            if (email) {
+                like("email", "%${email}%")
+            }
+
+            if (timezone) {
+                like("timezone", "%${timezone}%")
+            }
+
+            if (address) {
+                like("address", "%${address}%")
             }
 
             if (fullName) {

@@ -27,7 +27,7 @@
                 </span>
                 <div class="property-value" aria-labelledby="photo-label">
                     <div id="imageView">
-
+                        %{--<img src="data:image/png;base64,${profile?.photo.encodeBase64()}" />--}%
                     </div>
                 </div>
             </li>

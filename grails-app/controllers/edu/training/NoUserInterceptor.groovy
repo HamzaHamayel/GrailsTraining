@@ -4,6 +4,7 @@ package edu.training
 class NoUserInterceptor {
 
     NoUserInterceptor() {
+//        matchAll()
 //        matchAll().excludes(controller:"user")
 //        match(controller:"post", action:"list") // using strings
 //        match(controller: ~/(post|tag)/,action: "list|show") // using regex

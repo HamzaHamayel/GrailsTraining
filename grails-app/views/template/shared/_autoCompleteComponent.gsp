@@ -14,7 +14,7 @@
 
 
 <script type="text/javascript">
-    $('.basicAutoComplete').autoComplete({
+    $('#${fieldTextName}').autoComplete({
         resolverSettings: {
             url: '${createLink(controller: controller,action: 'autoComplete')}'
         }

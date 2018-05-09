@@ -539,7 +539,7 @@ class TestController {
     def renderTemplateOrTagLib = {
         //you can render it when use ajax request with html response
 //        render g.textField(name:"name")
-        render (template: '/template/text',model: [data:'123'])
+        render (template: '/template/text',model: [data:'my data behind text '])
     }
 
     def testAutoComplete = {

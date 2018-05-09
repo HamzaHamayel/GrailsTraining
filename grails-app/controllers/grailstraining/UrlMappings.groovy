@@ -6,10 +6,6 @@ class UrlMappings {
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here
-                id(validator: {
-//                    println("the id is: $it")
-                    return true
-                })
             }
         }
 
