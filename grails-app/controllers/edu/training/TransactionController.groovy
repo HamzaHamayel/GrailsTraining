@@ -21,7 +21,8 @@ class TransactionController {
 
     def show = {
         if (params.long("id")) {
-            respond transactionService.get(params)
+            Map map = [transaction:transactionService.get(params)]
+            respond map
         }else{
             notFound()
         }
