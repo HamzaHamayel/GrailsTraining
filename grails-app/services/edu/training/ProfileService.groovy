@@ -121,7 +121,6 @@ class ProfileService {
     }
 
     Profile save(GrailsParameterMap params) {
-        println("in save")
         Profile profile
         try {
             //it's update here
@@ -134,7 +133,7 @@ class ProfileService {
 
             profile.properties = params
 
-            MultipartFile multipartFile = WebUtils.retrieveGrailsWebRequest().getCurrentRequest().getFile('multipartFile')
+            MultipartFile multipartFile = WebUtils.retrieveGrailsWebRequest().getCurrentRequest()?.getFile('multipartFile')
             profile.photo = multipartFile?.bytes
 
             profile.save(flush: true, failOnError: true)

@@ -4,15 +4,15 @@ import edu.training.*
 
 class BootStrap {
 
-    Boolean executeBooStrapData = true
+    Boolean executeBootStrapData = true
 
     def init = { servletContext ->
         //added init data
-        if (executeBooStrapData) {
+        if (executeBootStrapData) {
             //country
-            Country psCountry = Country.findOrSaveByCodeAndName("ps","Palestine")
-            Country joCountry = Country.findOrSaveByCodeAndName("jo", "Jordan")
-            Country egCountry = Country.findOrSaveByCodeAndName("eg","Egypt")
+            Country psCountry = Country.findByCode("ps")?:new Country(code: "ps",name: "Palestine").save(flush:true,failOnError:true)
+            Country joCountry = Country.findByCode("jo")?:new Country(code: "jo",name: "Jordan").save(flush:true,failOnError:true)
+            Country egCountry = Country.findByCode("eg")?:new Country(code: "eg",name: "Egypt").save(flush:true,failOnError:true)
 
             //user
             User ahmadUser = User.findByUserId("ahmad")?:new User(userId:"ahmad",password:"password").save(flush:true,failOnError:true)
@@ -24,8 +24,8 @@ class BootStrap {
             danaUser.addToFollowing(ahmadUser).save(flush:true)
 
             //profile
-            Profile.findOrSaveByUserAndCountryAndFullNameAndBioAndEmailAndTimezoneAndAddressAndSalaryAndDateOfBirth( aliUser , psCountry,  "ali full name", "bio", "ali@email.com", "Asia/Hebron", "ramallah",1000, new Date("01/01/1980"))
-            Profile.findOrSaveByUserAndCountryAndFullNameAndBioAndEmailAndTimezoneAndAddressAndSalaryAndDateOfBirth( danaUser , joCountry,  "dana full name", "bio", "dana@email.com", "Asia/Amman", "Amman",2000, new Date("01/01/1995"))
+            Profile.findByUser(aliUser)?:new Profile(user:aliUser , country:psCountry,fullName:  "ali full name", bio:"bio", email:"ali@email.com", timezone:"Asia/Hebron",address: "Ramallah",salary:1000,dateOfBirth: new Date("01/01/1980")).save(flush:true,failOnError:true)
+            Profile.findByUser(danaUser)?:new Profile(user:danaUser , country:joCountry,fullName:  "dana full name", bio:"bio", email:"dana@email.com", timezone:"Asia/Amman",address: "Amman",salary:2000,dateOfBirth: new Date("01/01/1995")).save(flush:true,failOnError:true)
 
             //transaction
             User user
@@ -42,9 +42,9 @@ class BootStrap {
                     user = danaUser
                 }
 
-                post = Post.findOrSaveByContentAndUserAndClassification(postContent,user, TransactionClassification.POST)
-                tag = Tag.findOrSaveByNameAndUserAndClassificationAndPost(tagName,user,TransactionClassification.TAG,post)
-                TagPost.findOrSaveByTagAndPost(tag,post)
+                post = Post.findByContentAndUserAndClassification(postContent,user,TransactionClassification.POST)?: new Post(content: postContent,user:user,classification: TransactionClassification.POST).save(flush:true,failOnError:true)
+                tag = Tag.findByNameAndUserAndClassificationAndPost(tagName,user,TransactionClassification.TAG,post)?: new Tag(name: tagName,user:user,classification: TransactionClassification.TAG,post:post).save(flush:true,failOnError:true)
+                TagPost.findByTagAndPost(tag,post)?:new TagPost(tag:tag,post:post).save(flush:true,failOnError:true)
 
                 postContent = null
                 tagName = null

@@ -13,7 +13,7 @@
 
 <g:render template="/template/shared/listScript" />
 
-<g:applyLayout name="main">
+<g:applyLayout name="default">
     <g:layoutBody/>
 </g:applyLayout>
 

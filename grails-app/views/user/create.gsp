@@ -1,48 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="form" />
+    <meta name="layout" content="resourceForm" />
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-    <title><g:message code="default.create.label" args="[entityName]" /></title>
+    <g:set var="title" value="${message(code:"default.create.label",args:[entityName])}" />
+    <title>${title}</title>
 </head>
 <body>
-<a href="#create-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-    </ul>
-</div>
-<div id="create-user" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
 
 
-    <g:hasErrors bean="${this.user}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${this.user}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-            </g:eachError>
-        </ul>
-    </g:hasErrors>
 
-    <div id="messageStatus"></div>
+<layout:formPanel color="success" title="${title}" name="userForm" action="save" method="POST" buttons="[
+        btn.submit(color:'primary',label:message(code: 'default.button.create.label', default: 'Create')),
+]">
 
+    <alert:errorListAlert errorsObject="${user}" />
+    <alert:responseAlert />
 
-    <g:form name="userForm" action="save" method="POST">
+    <g:render template="/user/form" model="[user:user]" />
 
-        <g:render template="/user/form" model="[user:user]" />
-    %{--<g:render template="userTemplate" model="[user:user]" />--}%
-    %{--<tmpl:userTemplate model="[user:user]" />--}%
-
-
-        <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-        </fieldset>
-    </g:form>
-</div>
+</layout:formPanel>
 
 
 <script type="text/javascript">
@@ -86,17 +63,25 @@
 
 //            alert('status: ' + statusText + 'responseText: ' + responseText +
         $('#messageStatus').empty();
-        $('.fieldcontain').removeClass('error');
+        $('#alertMessage').empty();
+        $('.form-group').removeClass('has-error');
         var el;
+
+        if(json.message) {
+            el = jQuery("#messageStatus").html(json.message);
+        }
+
+        if(json.alert) {
+            el = jQuery("#alertMessage").html(json.alert);
+        }
+
         if (json.success) {
             // $('#userForm').clearForm();
             $('#userForm').resetForm();
-            el = jQuery("#messageStatus").html(json.message)
         }
         else {
-            el = jQuery('#messageStatus').html(json.message);
             $(json.errorList).each(function (index, value) {
-                $("#fieldcontain_" + value).addClass("error");
+                $("#formGroup_" + value).addClass("has-error");
             });
         }
 

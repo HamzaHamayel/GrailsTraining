@@ -8,4 +8,5 @@ grails.gorm.default.mapping = {
 }
 
 
+//grails.databinding.dateFormats = ["dd/MM/yyyy"]
 

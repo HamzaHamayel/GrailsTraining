@@ -1,9 +1,10 @@
 package edu.training
 
+import grails.artefact.TagLibrary
 import grails.gsp.TagLib
 
 @TagLib
-class MessageTagLib extends org.grails.plugins.web.taglib.FormTagLib{
+class MessageTagLib implements TagLibrary{
 
     static namespace = "msg"
 

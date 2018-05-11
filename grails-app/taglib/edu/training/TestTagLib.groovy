@@ -1,12 +1,10 @@
 package edu.training
 
+import grails.artefact.TagLibrary
 import grails.gsp.TagLib
-import org.grails.core.artefact.DomainClassArtefactHandler
-import org.springframework.context.MessageSourceResolvable
-import org.springframework.web.servlet.support.RequestContextUtils
 
 @TagLib
-class TestTagLib extends org.grails.plugins.web.taglib.FormTagLib{
+class TestTagLib implements TagLibrary{
 
     static namespace = "custom"
 

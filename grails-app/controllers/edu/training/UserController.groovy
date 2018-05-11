@@ -39,11 +39,12 @@ class UserController {
 
     def save = {
         User user = userService.save(params)
-        String successMessage = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
+        String successMessage = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user?.id])
         if (request.xhr) {
             def json = [:]
-            json.success = !user.hasErrors();
+            json.success = !user.hasErrors() && user?.id;
             json.message = json.success ? msg.formatMessage(message:successMessage) : msg.formatErrorList(errorsObject:  user);
+            json.alert = json.success ? alert.successAlert(value: successMessage) : alert.errorListAlert(errorsObject:  user);
             json.data = json.success ? user : null
             json.errorList = user?.hasErrors() ? user?.errors?.fieldErrors?.field : []
             render text: (json as JSON), contentType: "application/json"
@@ -52,6 +53,7 @@ class UserController {
                 respond user.errors, view: 'create' // return [user:user]
             } else {
                 flash.message = successMessage
+                flash.alert =  alert.successAlert(value: successMessage)
                 redirect(action: "list")
             }
         }
@@ -96,6 +98,7 @@ class UserController {
             respond user.errors, view:'edit'
         }else{
             flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
+            flash.alert =  alert.successAlert(value: message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id]))
             redirect(action: "list")
         }
     }

@@ -13,7 +13,7 @@
 
 <asset:javascript src="jquery-2.2.0.min.js"/>
 
-<g:applyLayout name="main">
+<g:applyLayout name="default">
     <g:layoutBody/>
 </g:applyLayout>
 

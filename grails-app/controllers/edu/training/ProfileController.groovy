@@ -56,6 +56,7 @@ class ProfileController {
             respond profile.errors, view:'create' // return [profile:profile]
         }else{
             flash.message = message(code: 'default.created.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id])
+            flash.alert = alert.successAlert(value:message(code: 'default.created.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id]))
             redirect(action: "list")
         }
     }
@@ -75,6 +76,7 @@ class ProfileController {
             respond profile.errors, view:'edit'
         }else{
             flash.message = message(code: 'default.updated.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id])
+            flash.alert = alert.successAlert(value:message(code: 'default.updated.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id]))
             redirect(action: "list")
         }
     }
@@ -84,6 +86,7 @@ class ProfileController {
         Boolean deleted = profileService.delete(params)
         if(deleted){
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'profile.label', default: 'Profile'), params.id])
+            flash.alert = alert.successAlert(value:message(code: 'default.deleted.message', args: [message(code: 'profile.label', default: 'Profile'), params.id]))
             redirect(action: "list")
         }else{
             notFound()

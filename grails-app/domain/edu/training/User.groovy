@@ -5,10 +5,10 @@ class User {
     String userId
     String password
     String homepage
+    String applicationName
     Date dateCreated
     Date lastUpdated
 
-    String applicationName
 
     static hasOne = [profile:Profile]
 

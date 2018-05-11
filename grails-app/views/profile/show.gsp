@@ -1,65 +1,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="show" />
+        <meta name="layout" content="resourceShow" />
         <g:set var="entityName" value="${message(code: 'profile.label', default: 'Profile')}" />
-        <title><g:message code="default.show.label" args="[entityName]" /></title>
+        <g:set var="title" value="${message(code: 'default.show.label',args: [entityName], default: 'Show Profile')}" />
+        <title>${title}</title>
     </head>
     <body>
-        <a href="#show-profile" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div>
-        <div id="show-profile" class="content scaffold-show" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
-            </g:if>
 
 
-            <li class="fieldcontain">
-                <span id="dateOfBirth-label" class="property-label">
-                    photo
-                </span>
-                <div class="property-value" aria-labelledby="photo-label">
-                    <div id="imageView">
-                        %{--<img src="data:image/png;base64,${profile?.photo.encodeBase64()}" />--}%
-                    </div>
-                </div>
-            </li>
+    <layout:showPanel title="${title}" buttons="[
+            btn.blue(label:message(code: 'default.list.label',args: [entityName], default: 'Create'),href:createLink(action: 'list')),
+            btn.orange(label:message(code: 'default.edit.label',args: [entityName], default: 'Create'),href:createLink(action: 'edit',id:profile?.id)),
+            btn.red(label:message(code: 'default.delete.label',args: [entityName], default: 'Delete'),href:createLink(action: 'delete',id:profile?.id),method:'DELETE'),
+    ]">
 
 
-            <f:display bean="profile" except="photo" />
+        <field:staticText label="${message(code: 'profile.id.label',default: 'id')}" value="${profile?.id}" />
+        <field:staticText label="${message(code: 'profile.fullName.label',default: 'fullName')}" value="${profile?.fullName}" />
 
 
 
-        </div>
+        <field:staticText label="${message(code: 'profile.bio.label',default: 'bio')}" value="${profile?.bio}" />
+        <field:staticText label="${message(code: 'profile.email.label',default: 'email')}" value="${profile?.email}" />
+        <field:staticText label="${message(code: 'profile.address.label',default: 'address')}" value="${profile?.address}" />
+
+        <field:staticText label="${message(code: 'profile.timezone.label',default: 'address')}" value="${profile?.timezone}" />
+        <field:staticText label="${message(code: 'profile.salary.label',default: 'address')}" value="${profile?.salary}" />
+        <field:staticText label="${message(code: 'profile.age.label',default: 'age')}" value="${profile?.age}" />
 
 
-            <g:form resource="${this.profile}" method="DELETE">
-                <fieldset class="buttons">
-                    <g:link class="edit" action="edit" resource="${this.profile}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                </fieldset>
-            </g:form>
-        </div>
+        <field:staticText label="${message(code: 'profile.dateOfBirth.label',default: 'dateOfBirth')}" value="${profile?.dateOfBirth?.format("dd/MM/yyyy")}" />
+        <field:staticText label="${message(code: 'profile.country.label',default: 'country')}" value="${profile?.country?.name}" />
+        <field:staticText label="${message(code: 'profile.user.label',default: 'user')}" value="${profile?.user?.userId}" />
 
-    <g:if test="${profile?.id && profile?.photo}">
-        <script type="text/javascript">
-            var img = $("<img />").attr('src', '${createLink(controller: 'profile',action: 'loadImage')}/${profile?.id}')
-                .on('load', function() {
-                    if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-                        alert('broken image!');
-                    } else {
-                        $("#imageView").append(img);
-                    }
-                });
-        </script>
-    </g:if>
+    <field:staticText label="${message(code: 'profile.photo.label',default: 'photo')}" value="${profile?.photo?"<img src=\"data:image/png;base64,${profile?.photo?.encodeBase64()}\" />":""}" />
+
+
+
+    </layout:showPanel>
+
+
 
     </body>
 </html>

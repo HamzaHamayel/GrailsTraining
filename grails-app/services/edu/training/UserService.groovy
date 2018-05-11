@@ -14,10 +14,11 @@ class UserService {
 
         Integer max = params.int("max")
         Integer offset = params.int("offset")
-        String code = params["code"]
-        String name = params["name"]
         Long id = params.long("id")
         String sSearch = params["sSearch"]
+        String userId = params["userId"]
+        String homepage = params["homepage"]
+        String applicationName = params["applicationName"]
         String orderBy = params["orderBy"]
         String orderDirection = params["dir"]
 
@@ -27,19 +28,22 @@ class UserService {
 
             if (sSearch) {
                 or {
-                    like("code", "%${sSearch}%")
-                    like("name", "%${sSearch}%")
+                    like("userId", "%${sSearch}%")
+                    like("applicationName", "%${sSearch}%")
                 }
             }
 
             if (id) {
                 eq("id", id)
             }
-            if (code) {
-                like("code", "%${code}%")
+            if (userId) {
+                like("userId", "%${userId}%")
             }
-            if (name) {
-                like("name", "%${name}%")
+            if (applicationName) {
+                like("applicationName", "%${applicationName}%")
+            }
+            if (homepage) {
+                like("homepage", "%${homepage}%")
             }
 
             if(orderBy && orderDirection){

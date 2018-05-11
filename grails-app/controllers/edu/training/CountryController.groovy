@@ -75,7 +75,7 @@ class CountryController {
     }
 
     def autoComplete = {
-        render countryService.search(params)?.collect{return [value:it.id,text:it.code]} as JSON
+        render countryService.search(params)?.collect{return [value:it.id,text:it.name]} as JSON
     }
 
     protected void notFound() {

@@ -11,7 +11,7 @@
 
 <g:render template="/template/shared/formScript" />
 
-<g:applyLayout name="main">
+<g:applyLayout name="default">
     <g:layoutBody/>
 </g:applyLayout>
 

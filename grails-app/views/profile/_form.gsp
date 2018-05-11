@@ -1,132 +1,104 @@
 
-<g:set var="objectName" value="profile" />
-
-<fieldset class="form">
 
 
-    <g:render template="/template/shared/uploadComponent"
 
+<div class="col-lg-6">
+    <field:text name="fullName" object="${profile}"
+                label="${message(code:'profile.fullName.label',default: 'fullName')}"
+                required="true" value="${profile?.fullName}" />
+
+    <field:mail name="email" object="${profile}"
+                label="${message(code:'profile.email.label',default: 'email')}"
+                required="true" value="${profile?.email}" />
+
+</div>
+
+<div class="col-lg-6">
+
+    <field:text name="bio" object="${profile}"
+                label="${message(code:'profile.bio.label',default: 'bio')}"
+                value="${profile?.bio}" />
+
+
+    <field:text name="timezone" object="${profile}"
+                label="${message(code:'profile.timezone.label',default: 'bio')}"
+                value="${profile?.timezone}" />
+
+
+
+</div>
+
+
+<div class="col-lg-6">
+
+
+
+    <field:text name="address" object="${profile}"
+                label="${message(code:'profile.address.label',default: 'address')}"
+                value="${profile?.address}" />
+
+
+
+    <field:currency name="salary" object="${profile}"
+                label="${message(code:'profile.salary.label',default: 'salary')}"
+                value="${profile?.salary}" />
+
+</div>
+
+
+<div class="col-lg-6">
+
+
+    <field:date required="true" name="dateOfBirth" object="${profile}"
+                   label="${message(code:'profile.dateOfBirth.label',default: 'dateOfBirth')}"
+                   value="${profile?.dateOfBirth?.format("dd/MM/yyyy")}" />
+
+
+
+    %{--<field:select required="true" name="country.id" object="${profile}" from="${edu.training.Country.list()}"--}%
+                %{--optionKey="id" optionValue="name"--}%
+                  %{--label="${message(code:'profile.country.label',default: 'country')}"--}%
+                %{--value="${profile?.country?.id}" />--}%
+
+
+    <g:render template="/template/shared/autoComplete"
               model="[
+                      controller:'country',
+                      required:true,
+                      label:message(code:'profile.country.label',default: 'country'),
                       object:profile,
-                      objectKey:objectName,
-                      fieldName:'multipartFile',
-                      fieldValueName:'photo'
+                      fieldHiddenId:'countryId',
+                      fieldHiddenName:'country.id',
+                      fieldTextName:'country',
+                      fieldHiddenValue:profile?.country?.id,
+                      fieldTextValue:profile?.country?.name
               ]"
     />
 
-
-    <g:render template="/template/shared/textComponent"
-
-              model="[
-                      isRequired:true,
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'fullName',
-                      fieldValue:profile?.fullName
-              ]"
-    />
+</div>
 
 
-    <g:render template="/template/shared/textComponent"
 
-              model="[
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'bio',
-                      fieldValue:profile?.bio
-              ]"
-    />
+<g:set var="userList" value="${ edu.training.User.findAllByIdNotInList(edu.training.Profile.list()?.user?.id)}"/>
+<g:if test="${profile?.id != null}">
+    <g:set var="userList" value="${[profile?.user]}"/>
+</g:if>
 
-    <g:render template="/template/shared/textComponent"
-
-              model="[
-                      isRequired:true,
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'email',
-                      fieldValue:profile?.email
-              ]"
-    />
+<div class="col-lg-6">
 
 
-    <g:render template="/template/shared/textComponent"
-
-              model="[
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'timezone',
-                      fieldValue:profile?.timezone
-              ]"
-    />
+    <field:select required="true" name="user.id" object="${profile}" from="${userList}"
+                  optionKey="id" optionValue="userId" disabled="${(profile?.id)?"true":"false"}"
+                  label="${message(code:'profile.user.label',default: 'user')}"
+                  value="${profile?.user?.id}" />
 
 
-    <g:render template="/template/shared/textComponent"
-
-              model="[
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'address',
-                      fieldValue:profile?.address
-              ]"
-    />
-    <g:render template="/template/shared/textComponent"
-
-              model="[
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'salary',
-                      fieldValue:profile?.salary
-              ]"
-    />
+</div>
 
 
-    <g:render template="/template/shared/dateComponent"
+<div class="col-lg-6">
+    <field:file name="multipartFile" object="${profile}"
+                  label="${message(code:'profile.photo.label',default: 'photo')}"
+                  value="${profile?.photo}" />
 
-              model="[
-                      isRequired:true,
-                      object:profile,
-                      objectKey:objectName,
-                      fieldName:'dateOfBirth',
-                      fieldValue:profile?.dateOfBirth
-              ]"
-    />
-
-
-    <g:render template="/template/shared/selectComponent"
-
-              model="[
-                      isRequired:true,
-                      object:profile,
-                      objectKey:objectName,
-                      labelFieldName:'country',
-                      fieldName:'country.id',
-                      fieldValue:profile?.country?.id,
-                      dataList:edu.training.Country.list(),
-                      optionKey:'id',
-                      optionValue:'name',
-              ]"
-    />
-
-    <g:set var="userList" value="${ edu.training.User.findAllByIdNotInList(edu.training.Profile.list()?.user?.id)}"/>
-    <g:if test="${profile?.id != null}">
-        <g:set var="userList" value="${[profile?.user]}"/>
-    </g:if>
-
-    <g:render template="/template/shared/selectComponent"
-
-              model="[
-                      isDisabled:(profile?.id != null),
-                      isRequired:true,
-                      object:profile,
-                      objectKey:objectName,
-                      labelFieldName:'user',
-                      fieldName:'user.id',
-                      fieldValue:profile?.user?.id,
-                      dataList:userList,
-                      optionKey:'id',
-                      optionValue:'userId',
-              ]"
-    />
-
-
-</fieldset>
+</div>

@@ -1,46 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="form" />
+    <meta name="layout" content="resourceForm" />
     <g:set var="entityName" value="${message(code: 'profile.label', default: 'Profile')}" />
-    <title><g:message code="default.create.label" args="[entityName]" /></title>
+    <g:set var="title" value="${message(code: 'default.create.label',args: [entityName], default: 'Create Profile')}" />
+    <title>${title}</title>
 </head>
 <body>
-<a href="#create-profile" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-    </ul>
-</div>
-<div id="create-profile" class="content scaffold-create" role="main">
 
 
-    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+<layout:formPanel color="success" title="${title}" name="profileForm" action="save" method="POST" withAttachment="true" buttons="[
+        btn.submit(color:'primary',label:message(code: 'default.button.create.label', default: 'Create')),
+]">
 
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
+    <alert:errorListAlert errorsObject="${profile}" />
+    <alert:responseAlert />
 
+    <g:render template="/profile/form" model="[profile:profile]" />
 
-    <g:hasErrors bean="${this.profile}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${this.profile}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>>
-                    <g:message error="${error}"/></li>
-            </g:eachError>
-        </ul>
-    </g:hasErrors>
-
-    <g:uploadForm action="save">
-        <g:render template="/profile/form" model="[profile:profile]"/>
-        <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-        </fieldset>
-    </g:uploadForm>
+</layout:formPanel>
 
 
-
-</div>
 </body>
 </html>
