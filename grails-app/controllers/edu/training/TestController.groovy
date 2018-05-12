@@ -550,4 +550,14 @@ class TestController {
         redirect(controller:'registration',action: 'create')
     }
 
+
+
+    def assignEmbededd = {
+        Transaction transaction = new Transaction()
+
+        transaction.history = new TransactionHistory(createdBy: "created",lastUpdateBy: "updated")
+
+        transaction.save()
+    }
+
 }

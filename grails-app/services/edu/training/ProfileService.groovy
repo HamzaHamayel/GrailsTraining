@@ -23,7 +23,7 @@ class ProfileService {
         String fullName = params["fullName"]
         Long id = params.long("id")
         Double salary = params.double("salary")
-        Date dateOfBirth //= params.date("dateOfBirth","dd/MM/yyyy")
+        Date dateOfBirth = params.date("dateOfBirth")
         String q = params["q"]
         String sSearch = params["sSearch"]
         Double sSearchInt = params.double("sSearch")
@@ -77,7 +77,7 @@ class ProfileService {
             }
 
             if (dateOfBirth) {
-                ge("id", dateOfBirth)
+                ge("dateOfBirth", dateOfBirth)
             }
 
 

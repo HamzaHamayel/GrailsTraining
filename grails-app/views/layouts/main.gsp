@@ -18,10 +18,14 @@
         <g:layoutTitle default="Application"/>
     </title>
 
-    <asset:stylesheet src="vendor/bootstrap/css/bootstrap.min.css" />
-    <asset:stylesheet src="vendor/metisMenu/metisMenu.min.css" />
+    <g:if test="${org.springframework.context.i18n.LocaleContextHolder.getLocale().language == "ar"}">
+        <asset:stylesheet src="vendor/bootstrap/css/bootstrap.min.css" />
+    </g:if>
+    <g:else>
+        <asset:stylesheet src="vendor/bootstrap/css/bootstrap.min.css" />
+    </g:else>
 
-
+    <asset:stylesheet src="vendor/metisMenu/metisMenu-rtl.min.css" />
 
 
     <asset:stylesheet src="vendor/morrisjs/morris.css" />

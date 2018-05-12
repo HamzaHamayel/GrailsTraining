@@ -12,7 +12,7 @@
 <alert:responseAlert />
 
 
-<layout:collapsePanel id="searchPanel" opened="true" title="${message(code:'default.search.label',args: [entityName])}" buttons="[
+<layout:collapsePanel class="3333" id="searchPanel" opened="flase" title="${message(code:'default.search.label',args: [entityName])}" buttons="[
         btn.blue(onclick:'_myDataTable.draw();',label:'Search'),
         btn.orange(onclick:'$(\'#searchForm\')[0].reset();_myDataTable.draw();',label:'Reset'),
 ]">

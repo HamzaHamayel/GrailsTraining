@@ -46,6 +46,7 @@
         <div class="col-lg-6">
 
             <field:text name="applicationName" label="${message(code:'user.applicationName.label',default: 'applicationName')}"  />
+            <field:date name="dateOfBirth" label="${message(code:'profile.dateOfBirth.label',default: 'dateOfBirth')}"  />
 
         </div>
 

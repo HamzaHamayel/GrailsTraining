@@ -34,7 +34,7 @@ class LayoutTagLib implements TagLibrary{
 
         out << """  
 
-<div class="row">
+<div class="row ${attrs.class}">
     <div class="col-lg-12">
         <div class="panel panel-${color}">
             <div class="panel-heading">
