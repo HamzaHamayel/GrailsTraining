@@ -1,5 +1,7 @@
 package edu.training
 
+import edu.training.security.User
+
 import java.time.LocalDate
 import java.time.Period
 import java.time.ZoneId

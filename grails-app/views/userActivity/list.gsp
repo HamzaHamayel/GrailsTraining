@@ -23,7 +23,7 @@
         <div class="col-lg-6">
 
 
-            <field:text name="userId" label="${message(code:'userActivity.user.label',default: 'User')}"  />
+            <field:text name="username" label="${message(code:'userActivity.user.label',default: 'User')}"  />
 
             <field:text name="activityName" label="${message(code:'userActivity.activityName.label',default: 'activityName')}"  />
 

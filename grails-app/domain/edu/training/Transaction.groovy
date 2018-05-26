@@ -1,7 +1,11 @@
 package edu.training
 
+import edu.training.security.User
+
 class Transaction {
 
+    transient springSecurityService
+    
     TransactionClassification classification
     User user
     Date dateCreated
@@ -13,6 +17,8 @@ class Transaction {
     static belongsTo = [User]
 
     static embedded = ['history']
+    
+    static transients = ['springSecurityService']
 
 
     static constraints = {
@@ -38,15 +44,16 @@ class Transaction {
         if(!history){
             history = new TransactionHistory()
         }
-        history.createdBy = "SYSTEM_CREATED"
+        history.createdBy = springSecurityService?.principal?.username
+        history.lastUpdateBy = springSecurityService?.principal?.username
     }
 
     def beforeUpdate() {
         if(!history){
             history = new TransactionHistory()
-            history.createdBy = "SYSTEM_CREATED"
+            history.createdBy = springSecurityService?.principal?.username
         }
-        history.lastUpdateBy = "SYSTEM_UPDATED"
+        history.lastUpdateBy = springSecurityService?.principal?.username
     }
 
 }

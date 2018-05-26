@@ -54,8 +54,8 @@
                               isRequired:true,
                               object:registration,
                               objectKey:objectName,
-                              fieldName:'userId',
-                              fieldValue:registration?.userId
+                              fieldName:'username',
+                              fieldValue:registration?.username
                       ]"
             />
 

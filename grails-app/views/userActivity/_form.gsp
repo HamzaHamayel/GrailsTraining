@@ -7,11 +7,11 @@
                   required:true,
                   label:message(code:'userActivity.user.label',default: 'user'),
                   object:userActivity,
-                  fieldHiddenId:'userId',
+                  fieldHiddenId:'username',
                   fieldHiddenName:'user.id',
                   fieldTextName:'user',
                   fieldHiddenValue:userActivity?.user?.id,
-                  fieldTextValue:userActivity?.user?.userId
+                  fieldTextValue:userActivity?.user?.username
           ]"
 />
 

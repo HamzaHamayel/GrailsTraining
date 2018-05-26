@@ -24,7 +24,7 @@
             action:'filter',
             columns:[
                     [key:'id',value:'id'],
-                    [key:'userId',value:message(code:'user.userId.label',default: 'userId')],
+                    [key:'username',value:message(code:'user.username.label',default: 'username')],
                     [key:'homepage',value:message(code:'user.homepage.label',default: 'homepage')],
                     [key:'applicationName',value:message(code:'user.applicationName.label',default: 'applicationName')],
             ]

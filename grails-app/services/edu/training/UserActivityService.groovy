@@ -15,8 +15,8 @@ class UserActivityService {
         Integer max = params.int("max")
         Integer offset = params.int("offset")
         String sSearch = params["sSearch"]
-        String userId = params["userId"]
-        Long userIdLong = params.long("user.id")
+        String username = params["username"]
+        Long usernameLong = params.long("user.id")
         String activityName = params["activityName"]
         String orderBy = params["orderBy"]
         String orderDirection = params["dir"]
@@ -35,13 +35,13 @@ class UserActivityService {
                 like("activityName", "%${activityName}%")
             }
 
-            if (userId || userIdLong) {
+            if (username || usernameLong) {
                 user {
-                    if (userId) {
-                        like("userId", "%${userId}%")
+                    if (username) {
+                        like("username", "%${username}%")
                     }
-                    if(userIdLong){
-                       eq("id", userIdLong)
+                    if(usernameLong){
+                       eq("id", usernameLong)
                    }
                 }
             }
@@ -106,7 +106,7 @@ class UserActivityService {
         Map map = [:]
         map.data = pagedResultList.collect{UserActivity userActivity->
             return [
-                    user:userActivity?.user?.userId,
+                    user:userActivity?.user?.username,
                     activityName:userActivity?.activityName,
             ]
         }

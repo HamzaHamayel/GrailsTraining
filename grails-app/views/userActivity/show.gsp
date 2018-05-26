@@ -15,7 +15,7 @@
     ]">
 
 
-        <field:staticText label="${message(code: 'userActivity.user.label',default: 'user')}" value="${userActivity?.user?.userId}" />
+        <field:staticText label="${message(code: 'userActivity.user.label',default: 'user')}" value="${userActivity?.user?.username}" />
         <field:staticText label="${message(code: 'userActivity.activityName.label',default: 'activityName')}" value="${userActivity?.activityName}" />
 
 

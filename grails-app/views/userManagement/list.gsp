@@ -24,7 +24,7 @@
 
 
             <field:text name="id" label="${message(code:'user.id.label',default: 'Id')}"  />
-            <field:text name="userId" label="${message(code:'user.userId.label',default: 'User Id')}"  />
+            <field:text name="username" label="${message(code:'user.username.label',default: 'User Id')}"  />
 
 
         </div>
@@ -45,13 +45,13 @@
 
 
 <g:render template="/template/shared/dataTable" model="[
-        controller:'user',
+        controller:'userManagement',
         action:'filter',
         title:title,
         searchFrom:'searchForm',
         columns:[
                 [key:'id',value:'id'],
-                [key:'userId',value:message(code:'user.userId.label',default: 'userId')],
+                [key:'username',value:message(code:'user.username.label',default: 'username')],
                 [key:'homepage',value:message(code:'user.homepage.label',default: 'homepage')],
                 [key:'applicationName',value:message(code:'user.applicationName.label',default: 'applicationName')],
         ]

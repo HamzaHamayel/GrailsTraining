@@ -60,6 +60,12 @@ dependencies {
     //custom plugin
     compile "myplugin:screen:0.1"
 
+    //security
+    compile 'org.grails.plugins:spring-security-core:3.2.1'
+    compile 'org.grails.plugins:spring-security-acl:3.2.1'
+    compile 'org.grails.plugins:spring-security-ui:3.1.2'
+
+
     testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.grails:grails-web-testing-support"
     testCompile "org.grails.plugins:geb:1.1.2"

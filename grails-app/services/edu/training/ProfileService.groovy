@@ -29,7 +29,7 @@ class ProfileService {
         Double sSearchInt = params.double("sSearch")
         String orderBy = params["orderBy"]
         String orderDirection = params["dir"]
-        Long userId = params.long("userId")
+        Long username = params.long("username")
 
         String applicationName = params["applicationName"]
         String bio = params["bio"]
@@ -53,11 +53,11 @@ class ProfileService {
                 }
             }
 
-            if(userId || applicationName){
+            if(username || applicationName){
 
                 user {
-                    if (userId) {
-                        eq('id', userId)
+                    if (username) {
+                        eq('id', username)
                     }
 
 
@@ -167,7 +167,7 @@ class ProfileService {
         map.data = pagedResultList.collect{Profile profile->
             return [
                     id:profile?.id,
-                    user:profile?.user?.userId,
+                    user:profile?.user?.username,
                     fullName:profile?.fullName,
                     bio:profile?.bio,
                     email:profile?.email,

@@ -27,7 +27,7 @@ class RegistrationController {
                 respond registration.errors, view: 'create' // return [user:user]
             } else {
                 flash.message = successMessage
-                redirect(controller:"user",action: "show",id:registrationCommand?.id)
+                redirect(controller:"userManagement",action: "show",id:registrationCommand?.id)
             }
         }
     }

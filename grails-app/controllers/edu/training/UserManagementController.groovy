@@ -1,11 +1,21 @@
 package edu.training
 
+import edu.training.security.User
 import grails.converters.JSON
+import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.acl.AclEntry
+import grails.plugin.springsecurity.acl.AclUtilService
+import org.springframework.security.acls.domain.BasePermission
+
 import static org.springframework.http.HttpStatus.*
 
-class UserController {
+class UserManagementController {
 
     UserService userService
+    AclUtilService aclUtilService
+    SpringSecurityService springSecurityService
+
 
     static allowedMethods = [save: "POST",saveCommand: "POST", update: "PUT", delete: "DELETE"]
 
@@ -62,7 +72,7 @@ class UserController {
 
     def saveCommand(UserCommand owner){
 
-        println("owner userId: ${owner?.userId}")
+        println("owner username: ${owner?.username}")
         println("owner homepage: ${owner?.homepage}")
         println("owner password: ${owner?.password}")
         println("owner applicationName: ${owner?.applicationName}")
@@ -115,8 +125,46 @@ class UserController {
     }
 
     def autoComplete = {
-        render userService.search(params)?.collect{return [value:it.id,text:it.userId]} as JSON
+        render userService.search(params)?.collect{return [value:it.id,text:it.username]} as JSON
     }
+
+
+    def aclManage = {
+
+    }
+
+    @Transactional
+    def saveAcl() {
+        Country country = Country.load(params.long("countryId"))
+        String username = params["userId"]
+        BasePermission basePermission = params["permission"] == "write" ? BasePermission.WRITE : BasePermission.READ
+
+        aclUtilService.addPermission(country, username, basePermission)
+        String successMessage = message(code: 'default.created.message', args: ['ACL'])
+
+        flash.alert = alert.successAlert(value: successMessage)
+        redirect(action: "list")
+
+    }
+
+
+    def getAcl = {
+
+        def username = springSecurityService?.currentUser?.username
+        List<Long> objectIds = AclEntry.createCriteria().list {
+            sid { eq('sid', username) }
+            aclObjectIdentity {
+                projections { property("objectId") }
+            }
+        }
+        println("objectIds: $objectIds")
+        if(objectIds){
+            render "user has acl on country: ${Country.findByIdInList(objectIds)?.name}"
+        } else {
+            render "no acl for current user"
+        }
+    }
+
 
     protected void notFound() {
         request.withFormat {

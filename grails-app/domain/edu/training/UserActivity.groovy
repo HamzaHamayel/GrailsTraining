@@ -1,5 +1,7 @@
 package edu.training
 
+import edu.training.security.User
+
 class UserActivity implements Serializable{
 
     User user

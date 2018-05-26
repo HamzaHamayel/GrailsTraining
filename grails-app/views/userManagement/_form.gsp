@@ -2,7 +2,7 @@
 
 
 <div class="col-lg-6">
-    <field:text name="userId" object="${user}" label="${message(code:'user.userId.label',default: 'User Id')}" required="true" value="${user?.userId}" />
+    <field:text name="username" object="${user}" label="${message(code:'user.username.label',default: 'User Id')}" required="true" value="${user?.username}" />
     <field:password name="password" object="${user}" label="${message(code:'user.password.label',default: 'Password')}" required="true" value="${user?.password}" />
 
 </div>

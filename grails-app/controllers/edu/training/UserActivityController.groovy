@@ -22,7 +22,7 @@ class UserActivityController {
 
     def show = {
         if (params["user"] && params["activityName"]) {
-            params.userId = params.remove("user")
+            params.username = params.remove("user")
             respond userActivityService.get(params)
         }else{
             notFound()
@@ -39,7 +39,7 @@ class UserActivityController {
 
     def save = {
         UserActivity userActivity = userActivityService.save(params)
-        String successMessage = message(code: 'default.created.message', args: [message(code: 'userActivity.label', default: 'UserActivity'), userActivity?.user?.userId])
+        String successMessage = message(code: 'default.created.message', args: [message(code: 'userActivity.label', default: 'UserActivity'), userActivity?.user?.username])
         if (request.xhr) {
             def json = [:]
             json.success = !userActivity.hasErrors() && userActivity?.id;

@@ -3,16 +3,16 @@ package edu.training
 class UserCommand implements grails.validation.Validateable {
 
     Long id
-    String userId
+    String username
     String password
     String homepage
     String applicationName
 
     static constraints = {
         id(nullable: true)
-        userId(size: 3..20,unique: true)
+        username(size: 3..20,unique: true)
         password(password:true,size: 6..8,validator:{val, obj, errors ->
-            if (val == obj.userId) {
+            if (val == obj.username) {
                 errors.rejectValue('password', 'user.password.errorValue')
             }
         })

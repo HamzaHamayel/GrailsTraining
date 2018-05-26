@@ -31,8 +31,12 @@
 
 
         <field:staticText label="${message(code: 'profile.dateOfBirth.label',default: 'dateOfBirth')}" value="${profile?.dateOfBirth?.format("dd/MM/yyyy")}" />
+
+        %{--<g:formatDate date="${profile?.dateOfBirth}" />--}%
+
+
         <field:staticText label="${message(code: 'profile.country.label',default: 'country')}" value="${profile?.country?.name}" />
-        <field:staticText label="${message(code: 'profile.user.label',default: 'user')}" value="${profile?.user?.userId}" />
+        <field:staticText label="${message(code: 'profile.user.label',default: 'user')}" value="${profile?.user?.username}" />
 
     <field:staticText label="${message(code: 'profile.photo.label',default: 'photo')}" value="${profile?.photo?"<img src=\"data:image/png;base64,${profile?.photo?.encodeBase64()}\" />":""}" />
 

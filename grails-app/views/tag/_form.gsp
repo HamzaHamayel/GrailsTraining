@@ -25,9 +25,9 @@
                       labelFieldName:'user',
                       fieldName:'user.id',
                       fieldValue:tag?.user?.id,
-                      dataList:edu.training.User.list(),
+                      dataList:edu.training.security.User.list(),
                       optionKey:'id',
-                      optionValue:'userId',
+                      optionValue:'username',
               ]"
     />
 

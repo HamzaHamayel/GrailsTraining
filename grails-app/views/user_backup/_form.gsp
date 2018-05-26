@@ -10,8 +10,8 @@
                       isRequired:true,
                       object:user,
                       objectKey:objectName,
-                      fieldName:'userId',
-                      fieldValue:user?.userId
+                      fieldName:'username',
+                      fieldValue:user?.username
               ]"
     />
 

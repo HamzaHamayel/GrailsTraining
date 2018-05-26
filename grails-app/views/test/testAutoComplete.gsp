@@ -22,7 +22,7 @@
             user:
 
             <g:textField name="user" class=" basicAutoComplete"  style="width:290px;" />
-            <g:textField name="userId" />
+            <g:textField name="username" />
 
         </label>
 
@@ -67,7 +67,7 @@
                     {
                         data: {
                             sSearch: qry,
-                            userId: $('#userId').val()
+                            username: $('#username').val()
                         }
                     }
                 ).done(function (res) {
@@ -81,11 +81,11 @@
 
     $('#user').autoComplete({
         resolverSettings: {
-            url: '${createLink(controller: 'user',action: 'autoComplete')}'
+            url: '${createLink(controller: 'userManagement',action: 'autoComplete')}'
         },
         minLength:0
     }).on('autocomplete.select', function (evt, item) {
-        $("#userId").val(item.value);
+        $("#username").val(item.value);
     });;
 
 

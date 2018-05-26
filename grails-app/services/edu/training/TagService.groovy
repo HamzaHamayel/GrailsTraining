@@ -28,7 +28,7 @@ class TagService {
                 or {
                     like("name", "%${sSearch}%")
                     user {
-                        like("userId", "%${sSearch}%")
+                        like("username", "%${sSearch}%")
                     }
                 }
             }
@@ -101,7 +101,7 @@ class TagService {
             return [
                     id:tag?.id,
                     name:tag?.name,
-                    user:tag?.user?.userId,
+                    user:tag?.user?.username,
                     dateCreated:tag?.dateCreated?.format("dd/MM/yyyy")
 
             ]

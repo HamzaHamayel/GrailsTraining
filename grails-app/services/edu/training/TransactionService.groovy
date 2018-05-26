@@ -26,7 +26,7 @@ class TransactionService {
             if (sSearch) {
                 or {
                     user {
-                        like("userId", "%${sSearch}%")
+                        like("username", "%${sSearch}%")
                     }
                 }
             }
@@ -60,7 +60,7 @@ class TransactionService {
         map.data = pagedResultList.collect{Transaction transaction->
             return [
                     id:transaction?.id,
-                    user:transaction?.user?.userId,
+                    user:transaction?.user?.username,
                     transaction:transaction?.classification,
                     dateCreated:transaction?.dateCreated?.format("dd/MM/yyyy")
             ]

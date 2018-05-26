@@ -1,6 +1,10 @@
 package grailstraining
 
 import edu.training.*
+import edu.training.security.Requestmap
+import edu.training.security.Role
+import edu.training.security.User
+import edu.training.security.UserRole
 
 class BootStrap {
 
@@ -15,9 +19,9 @@ class BootStrap {
             Country egCountry = Country.findByCode("eg")?:new Country(code: "eg",name: "Egypt").save(flush:true,failOnError:true)
 
             //user
-            User ahmadUser = User.findByUserId("ahmad")?:new User(userId:"ahmad",password:"password").save(flush:true,failOnError:true)
-            User aliUser = User.findByUserId("ali")?:new User(userId:"ali",password:"password").save(flush:true,failOnError:true)
-            User danaUser = User.findByUserId("dana")?:new User(userId:"dana",password:"password").save(flush:true,failOnError:true)
+            User ahmadUser = User.findByUsername("ahmad")?:new User(username:"ahmad",password:"password").save(flush:true,failOnError:true)
+            User aliUser = User.findByUsername("ali")?:new User(username:"ali",password:"password").save(flush:true,failOnError:true)
+            User danaUser = User.findByUsername("dana")?:new User(username:"dana",password:"password").save(flush:true,failOnError:true)
 
             //following
             aliUser.addToFollowing(ahmadUser).save(flush:true)
@@ -52,6 +56,61 @@ class BootStrap {
                 post = null
                 tag = null
             }
+
+
+            //security
+
+
+            //roles
+            Role adminRole = Role.findByAuthority("ROLE_ADMIN")?:new Role(authority: "ROLE_ADMIN").save(flush:true,failOnError:true)
+            Role userRole = Role.findByAuthority("ROLE_USER")?:new Role(authority: "ROLE_USER").save(flush:true,failOnError:true)
+
+            //assign admin users
+            UserRole.findByRoleAndUser(adminRole,aliUser)?:new UserRole(user:aliUser,role: adminRole).save(flush:true,failOnError:true)
+
+            //assign normal users
+            UserRole.findByRoleAndUser(userRole,danaUser)?:new UserRole(user:danaUser,role: userRole).save(flush:true,failOnError:true)
+            UserRole.findByRoleAndUser(userRole,ahmadUser)?:new UserRole(user:ahmadUser,role: userRole).save(flush:true,failOnError:true)
+
+
+            //requestmap
+            Requestmap.executeUpdate('delete from Requestmap')
+            for (String url in ['/', '/error', '/index', '/index.gsp',
+                                '/**/favicon.ico', '/shutdown', '/**/js/**', '/**/css/**',
+                                '/**/images/**', '/login', '/login.*', '/login/*', '/logout',
+                                '/logout.*', '/logout/*']) {
+                new Requestmap(url: url, configAttribute: 'permitAll').save()
+            }
+
+            //system screens
+
+            //just admin
+            new Requestmap(url: '/profile/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/country/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+
+            //ui
+            new Requestmap(url: '/user/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/role/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/aclClass/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/aclEntry/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/aclObjectIdentity/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/aclSid/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/persistentLogin/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/register/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/registrationCode/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/requestmap/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/securityInfo/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+
+
+
+            new Requestmap(url: '/test/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/userManagement/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/transaction/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/post/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/tag/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/tagPost/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/userActivity/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+
 
         }
 

@@ -17,7 +17,7 @@
 
 
         <field:staticText label="${message(code: 'user.id.label',default: 'id')}" value="${user?.id}" />
-        <field:staticText label="${message(code: 'user.userId.label',default: 'user id')}" value="${user?.userId}" />
+        <field:staticText label="${message(code: 'user.username.label',default: 'user id')}" value="${user?.username}" />
         <field:staticText label="${message(code: 'user.homepage.label',default: 'homepage')}" value="${user?.homepage}" />
         <field:staticText label="${message(code: 'user.applicationName.label',default: 'applicationName')}" value="${user?.applicationName}" />
         <field:staticText label="${message(code: 'user.dateCreated.label',default: 'dateCreated')}" value="${user?.dateCreated}" />

@@ -1,5 +1,6 @@
 package edu.training
 
+import edu.training.security.User
 import grails.gorm.transactions.Transactional
 
 @Transactional

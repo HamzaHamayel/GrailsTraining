@@ -28,7 +28,7 @@ class PostService {
                 or {
                     like("content", "%${sSearch}%")
                     user {
-                        like("userId", "%${sSearch}%")
+                        like("username", "%${sSearch}%")
                     }
                 }
             }
@@ -101,7 +101,7 @@ class PostService {
             return [
                     id:post?.id,
                     content:post?.content,
-                    user:post?.user?.userId,
+                    user:post?.user?.username,
                     dateCreated:post?.dateCreated?.format("dd/MM/yyyy")
             ]
         }

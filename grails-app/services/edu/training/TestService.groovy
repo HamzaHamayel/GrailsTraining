@@ -1,5 +1,6 @@
 package edu.training
 
+import edu.training.security.User
 import grails.gorm.transactions.Transactional
 
 //service by default is transactional with write access and any transaction will be saved
@@ -66,7 +67,7 @@ class TestService {
 //        try{
 
             user = new User()
-            user.userId = "abc2"
+            user.username = "abc2"
             user.password = "abcabc"
             user.save(flush:true)
 

@@ -18,11 +18,9 @@
 
         <g:hiddenField name="id" value="${this.user?.id}" />
         <g:hiddenField name="version" value="${this.user?.version}" />
-        <g:render template="/user/form" model="[user:user]" />
+        <g:render template="/userManagement/form" model="[user:user]" />
 
     </layout:formPanel>
 
-
-        </div>
     </body>
 </html>

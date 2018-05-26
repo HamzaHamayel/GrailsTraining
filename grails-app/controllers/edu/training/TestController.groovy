@@ -1,5 +1,6 @@
 package edu.training
 
+import edu.training.security.User
 import grails.converters.JSON
 import grails.converters.XML
 import grails.gorm.DetachedCriteria
@@ -54,7 +55,7 @@ class TestController {
     //@Transactional
     def testQuery(){
 
-        User userIns = User.findByUserId("ali")
+        User userIns = User.findByUsername("ali")
         def postCriteria = Post.createCriteria()
         def sql = new Sql(dataSource)
         def queryResult
@@ -65,7 +66,7 @@ class TestController {
 //        queryResult = Transaction.list()
 //        queryResult = Transaction.list(offset:10, max:20)
 //        queryResult = Post.list(sort:"content", order:"asc")
-//        queryResult = User.get(1)?.userId
+//        queryResult = User.get(1)?.username
 //        queryResult = Transaction.count()
 //        queryResult = Transaction.countByUser(userIns)
 
@@ -182,15 +183,15 @@ class TestController {
 
 //        queryResult = Post.where {
 //            user{
-//                userId == "dana"
+//                username == "dana"
 //            }
 //        }.list(max:5)
 
 
 //        queryResult = Profile.where {
 //            def o1 = user //define alias in critera like (select * from user o1)
-//            o1.userId == "ali" && bio == "bio"
-//        }.list(sort:'o1.userId',max: 10)
+//            o1.username == "ali" && bio == "bio"
+//        }.list(sort:'o1.username',max: 10)
 
        //TODO:START FROM HERE
 
@@ -225,7 +226,7 @@ class TestController {
 
         //VAR
 //        def users = User.where {
-//            userId == "ali"
+//            username == "ali"
 //        }.id()
 //
 //        queryResult = Profile.where {
@@ -428,7 +429,7 @@ class TestController {
 
         //One
         User user = new User()
-        params.userId = "userId"
+        params.username = "username"
         params.password = "password"
         params.homepage = "homepage"
 
@@ -447,11 +448,11 @@ class TestController {
 
 
         //Two
-//        Map data = [userId:"userId",password:"password",homepage:"homepage"]
-        Map data = [userId:"userId",password:"password",homepage:"homepage",profile:[fullName:"fullName",bio:"bio"]]
+//        Map data = [username:"username",password:"password",homepage:"homepage"]
+        Map data = [username:"username",password:"password",homepage:"homepage",profile:[fullName:"fullName",bio:"bio"]]
 //        User user = new User(data)
 
-        println("userId: ${user?.userId}")
+        println("username: ${user?.username}")
         println("password: ${user?.password}")
         println("homepage: ${user?.homepage}")
 

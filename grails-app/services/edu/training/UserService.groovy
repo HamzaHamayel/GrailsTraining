@@ -1,5 +1,6 @@
 package edu.training
 
+import edu.training.security.User
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 import grails.orm.PagedResultList
@@ -16,7 +17,7 @@ class UserService {
         Integer offset = params.int("offset")
         Long id = params.long("id")
         String sSearch = params["sSearch"]
-        String userId = params["userId"]
+        String username = params["username"]
         String homepage = params["homepage"]
         String applicationName = params["applicationName"]
         String orderBy = params["orderBy"]
@@ -28,7 +29,7 @@ class UserService {
 
             if (sSearch) {
                 or {
-                    like("userId", "%${sSearch}%")
+                    like("username", "%${sSearch}%")
                     like("applicationName", "%${sSearch}%")
                 }
             }
@@ -36,8 +37,8 @@ class UserService {
             if (id) {
                 eq("id", id)
             }
-            if (userId) {
-                like("userId", "%${userId}%")
+            if (username) {
+                like("username", "%${username}%")
             }
             if (applicationName) {
                 like("applicationName", "%${applicationName}%")
@@ -100,7 +101,7 @@ class UserService {
 
             user.properties = userCommand.properties
 
-            println("userId: ${user?.userId}")
+            println("username: ${user?.username}")
             println("homepage: ${user?.homepage}")
             println("password: ${user?.password}")
             println("applicationName: ${user?.applicationName}")
@@ -134,7 +135,7 @@ class UserService {
         map.data = pagedResultList.collect{User user->
             return [
                     id:user?.id,
-                    userId:user?.userId,
+                    username:user?.username,
                     homepage:user?.homepage,
                     applicationName:user?.applicationName,
             ]

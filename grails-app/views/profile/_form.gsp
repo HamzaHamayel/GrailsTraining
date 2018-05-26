@@ -79,7 +79,7 @@
 
 
 
-<g:set var="userList" value="${ edu.training.User.findAllByIdNotInList(edu.training.Profile.list()?.user?.id)}"/>
+<g:set var="userList" value="${ edu.training.security.User.findAllByIdNotInList(edu.training.Profile.list()?.user?.id)}"/>
 <g:if test="${profile?.id != null}">
     <g:set var="userList" value="${[profile?.user]}"/>
 </g:if>
@@ -88,7 +88,7 @@
 
 
     <field:select required="true" name="user.id" object="${profile}" from="${userList}"
-                  optionKey="id" optionValue="userId" disabled="${(profile?.id)?"true":"false"}"
+                  optionKey="id" optionValue="username" disabled="${(profile?.id)?"true":"false"}"
                   label="${message(code:'profile.user.label',default: 'user')}"
                   value="${profile?.user?.id}" />
 

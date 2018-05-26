@@ -23,12 +23,12 @@
                       object:post,
                       objectKey:objectName,
                       labelFieldName:'user',
-                      fieldId:'userId',
+                      fieldId:'username',
                       fieldName:'user.id',
                       fieldValue:post?.user?.id,
-                      dataList:edu.training.User.list(),
+                      dataList:edu.training.security.User.list(),
                       optionKey:'id',
-                      optionValue:'userId',
+                      optionValue:'username',
                       onChange:'setUser()'
               ]"
     />
@@ -68,8 +68,8 @@
 
     <script>
         function setUser() {
-            $('#user1').val($('#userId').val());
-            $('#user2').val($('#userId').val());
+            $('#user1').val($('#username').val());
+            $('#user2').val($('#username').val());
         }
     </script>
 </g:if>

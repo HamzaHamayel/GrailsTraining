@@ -17,7 +17,7 @@
     <alert:errorListAlert errorsObject="${user}" />
     <alert:responseAlert />
 
-    <g:render template="/user/form" model="[user:user]" />
+    <g:render template="/userManagement/form" model="[user:user]" />
 
 </layout:formPanel>
 
