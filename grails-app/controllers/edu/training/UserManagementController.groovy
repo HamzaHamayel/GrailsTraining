@@ -159,10 +159,18 @@ class UserManagementController {
         }
         println("objectIds: $objectIds")
         if(objectIds){
-            render "user has acl on country: ${Country.findByIdInList(objectIds)?.name}"
+            render "user has acl on country: ${Country.findAllByIdInList(objectIds)?.name}"
         } else {
             render "no acl for current user"
         }
+    }
+
+
+    def deleteAcl = {
+
+        Country country = Country.findByCode("ps")
+        aclUtilService.deleteAcl(country)
+
     }
 
 

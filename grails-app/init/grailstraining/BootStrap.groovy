@@ -5,6 +5,9 @@ import edu.training.security.Requestmap
 import edu.training.security.Role
 import edu.training.security.User
 import edu.training.security.UserRole
+import grails.plugin.springsecurity.acl.AclClass
+import grails.plugin.springsecurity.acl.AclObjectIdentity
+import grails.plugin.springsecurity.acl.AclSid
 
 class BootStrap {
 
@@ -111,6 +114,14 @@ class BootStrap {
             new Requestmap(url: '/tagPost/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
             new Requestmap(url: '/userActivity/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
 
+
+            //acl data
+
+            AclClass aclClass = AclClass.findByClassName("edu.training.Country")?:new AclClass(className: "edu.training.Country").save(flush: true)
+            AclSid aclSid = AclSid.findBySid("ali")?:new AclSid(sid: "ali",principal: true).save(flush: true)
+            AclObjectIdentity.findByObjectIdAndAclClass(1L,aclClass)?:new AclObjectIdentity(aclClass:aclClass,owner:aclSid,objectId: 1L,entriesInheriting:false).save(flush: true)
+            AclObjectIdentity.findByObjectIdAndAclClass(2L,aclClass)?:new AclObjectIdentity(aclClass:aclClass,owner:aclSid,objectId: 2L,entriesInheriting:false).save(flush: true)
+            AclObjectIdentity.findByObjectIdAndAclClass(3L,aclClass)?:new AclObjectIdentity(aclClass:aclClass,owner:aclSid,objectId: 3L,entriesInheriting:false).save(flush: true)
 
         }
 
