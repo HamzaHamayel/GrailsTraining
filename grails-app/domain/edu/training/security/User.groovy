@@ -13,6 +13,9 @@ class User implements Serializable {
 
     private static final long serialVersionUID = 1
 
+//    static auditable = true
+    static auditable = [ignore:['accountExpired'],auditableProperties:['username','homepage','applicationName']]
+
     String username
     String password
     Boolean enabled = Boolean.TRUE
@@ -75,6 +78,21 @@ class User implements Serializable {
             }
         }
     }
+
+
+    def onSave = {
+        println "new user inserted"
+        // may optionally refer to newState map
+    }
+    def onDelete = {
+        println "user was deleted"
+        // may optionally refer to oldState map
+    }
+    def onChange = { oldMap,newMap ->
+        println "user was changed with old data :$oldMap and new data: $newMap ..."
+    }//*/
+
+
 
 
     @Override

@@ -43,6 +43,19 @@
 </layout:collapsePanel>
 
 
+<jasper:jasperReport
+        jasper="sample-jasper-plugin"
+        format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX"
+        name="Parameter Example" delimiter="|" >
+    Your name: <input type="text" name="name"/>
+    Your age: <input type="text" name="schconid"/>
+</jasper:jasperReport>
+
+
+%{--<g:jasperForm controller="userManagement" action="report" jasper="user-report" >--}%
+    %{--<g:jasperButton format="pdf" jasper="user-report" text="PDF" />--}%
+%{--</g:jasperForm>--}%
+
 
 <g:render template="/template/shared/dataTable" model="[
         controller:'userManagement',

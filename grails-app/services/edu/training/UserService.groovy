@@ -22,6 +22,7 @@ class UserService {
         String applicationName = params["applicationName"]
         String orderBy = params["orderBy"]
         String orderDirection = params["dir"]
+        Boolean enabled = params.boolean("enabled")
 
 
 
@@ -45,6 +46,9 @@ class UserService {
             }
             if (homepage) {
                 like("homepage", "%${homepage}%")
+            }
+            if(enabled != null){
+                eq("enabled",enabled)
             }
 
             if(orderBy && orderDirection){

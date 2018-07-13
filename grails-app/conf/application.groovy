@@ -58,6 +58,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/js/**',       filters: 'none'],
 	[pattern: '/**/css/**',      filters: 'none'],
 	[pattern: '/**/images/**',   filters: 'none'],
+	[pattern: '/**/reports/**',   filters: 'none'],
 	[pattern: '/**/favicon.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
@@ -75,5 +76,12 @@ security {
 }
 
 
-
-
+// AuditLog Plugin config
+grails {
+	plugin {
+		auditLog {
+			grails.plugin.auditLog.auditDomainClassName = 'edu.training.audit.DataAudit'
+			truncateLength = 50
+		}
+	}
+}

@@ -1,15 +1,24 @@
 package edu.training
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
+
 import static org.springframework.http.HttpStatus.*
 
 class PostController {
 
     PostService postService
 
+    SpringSecurityService springSecurityService
+
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index = {
+
+        springSecurityService.principal
+
+
         redirect(action: "list")
     }
 

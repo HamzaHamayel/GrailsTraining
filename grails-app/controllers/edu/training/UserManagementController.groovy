@@ -6,6 +6,9 @@ import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.acl.AclEntry
 import grails.plugin.springsecurity.acl.AclUtilService
+import grails.plugins.jasper.JasperExportFormat
+import grails.plugins.jasper.JasperReportDef
+import org.apache.commons.io.FileUtils
 import org.springframework.security.acls.domain.BasePermission
 
 import static org.springframework.http.HttpStatus.*
@@ -17,7 +20,7 @@ class UserManagementController {
     SpringSecurityService springSecurityService
 
 
-    static allowedMethods = [save: "POST",saveCommand: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST",saveCommand: "POST", update: "PUT"]
 
     def index = {
         redirect(action: "list")
@@ -171,6 +174,33 @@ class UserManagementController {
         Country country = Country.findByCode("ps")
         aclUtilService.deleteAcl(country)
 
+    }
+
+
+    def jasperService
+    def report = {
+        params.username = springSecurityService.principal.username
+        List reportDetails = userService.search(params)
+        chain(controller: 'jasper', action: 'index', model: [data: reportDetails], params: params)
+
+
+//        JasperReportDef reportDef = new JasperReportDef(reportData: reportDetails,parameters: params,name: 'user-report.jrxml', fileFormat: JasperExportFormat.PDF_FORMAT)
+//        reportDef.fileFormat = JasperExportFormat.PDF_FORMAT
+//        reportDef.reportData = jasperService.getReportData([data:reportDetails], params)
+//        reportDef.contentStream = jasperService.generateReport(reportDef)
+//        reportDef.jasperPrinter = jasperService.generatePrinter(reportDef)
+//        generateResponse(reportDef)
+    }
+
+    def generateResponse(JasperReportDef reportDef) {
+        if (!reportDef.fileFormat.inline && !reportDef.parameters._inline) {
+            response.setHeader("Content-disposition", "attachment; filename=" + (reportDef.parameters._name ?: reportDef.name) + "." + reportDef.fileFormat.extension)
+            response.contentType = reportDef.fileFormat.mimeTyp
+            response.characterEncoding = "UTF-8"
+            response.outputStream << reportDef.contentStream.toByteArray()
+        } else {
+            render(text: reportDef.contentStream, contentType: reportDef.fileFormat.mimeTyp, encoding: reportDef.parameters.encoding ? reportDef.parameters.encoding : 'UTF-8')
+        }
     }
 
 

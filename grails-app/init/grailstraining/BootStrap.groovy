@@ -79,7 +79,7 @@ class BootStrap {
             //requestmap
             Requestmap.executeUpdate('delete from Requestmap')
             for (String url in ['/', '/error', '/index', '/index.gsp',
-                                '/**/favicon.ico', '/shutdown', '/**/js/**', '/**/css/**',
+                                '/**/favicon.ico', '/shutdown', '/**/js/**', '/**/css/**', '/**/reports/**',
                                 '/**/images/**', '/login', '/login.*', '/login/*', '/logout',
                                 '/logout.*', '/logout/*']) {
                 new Requestmap(url: url, configAttribute: 'permitAll').save()
@@ -90,6 +90,7 @@ class BootStrap {
             //just admin
             new Requestmap(url: '/profile/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
             new Requestmap(url: '/country/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/auditLogEvent/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
 
             //ui
             new Requestmap(url: '/user/**', configAttribute: 'ROLE_ADMIN').save(flush: true)
@@ -113,6 +114,9 @@ class BootStrap {
             new Requestmap(url: '/tag/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
             new Requestmap(url: '/tagPost/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
             new Requestmap(url: '/userActivity/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/jasper/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/jasperDemo/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/fieldTest/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
 
 
             //acl data
