@@ -33,7 +33,6 @@
                     %{--<f:all bean="fieldTest"/>--}%
 
                     %{--<f:field bean="fieldTest" property="name"/>--}%
-                    %{--<f:field bean="fieldTest" property="password"/>--}%
                     %{--<f:field property="password">--}%
                         %{--<g:passwordField name="password" value=""/>--}%
                     %{--</f:field>--}%

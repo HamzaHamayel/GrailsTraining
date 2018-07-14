@@ -85,3 +85,5 @@ grails {
 		}
 	}
 }
+
+grails.plugin.fields.disableLookupCache = true

@@ -24,7 +24,7 @@
             <f:display bean="fieldTest" />
 
 
-            %{--<f:display bean="fieldTest" property="name" wrapper="bootstrap3"/>--}%
+            %{--<f:display bean="fieldTest" property="name" />--}%
             %{--<f:display bean="fieldTest" property="dateOfBirth">--}%
                 %{--<g:formatDate format="dd/MM/yyyy" date="${value}"/>--}%
             %{--</f:display>--}%

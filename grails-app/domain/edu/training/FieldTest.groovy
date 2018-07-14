@@ -10,7 +10,7 @@ class FieldTest {
     static constraints = {
         name(blank: false,nullable: false)
         password(blank: false,nullable: false,password:true)
-        salary(nullable: false,display:false)
+        salary(nullable: false,display:true)
         dateOfBirth(nullable: false)
     }
 }

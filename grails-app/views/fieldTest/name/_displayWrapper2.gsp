@@ -1,5 +1,5 @@
     <span  class="property-label">
-      AAA-  ${label}
+      ${label}
     </span>
     <div class="property-value" aria-labelledby="${name}-label">${body(p)}
     ${value}
