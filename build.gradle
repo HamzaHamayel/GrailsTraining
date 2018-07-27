@@ -2,11 +2,14 @@ buildscript {
     repositories {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
+        maven { url "https://dl.bintray.com/ctoestreich/grails-plugins" } //Required until grails repo is fixed
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.8"
+        //required for cxf
+        classpath "org.grails.plugins:cxf-client:3.0.7" //This line
     }
 }
 
@@ -73,6 +76,13 @@ dependencies {
 
     //report
     compile 'org.grails.plugins:jasper:2.1.0.RC1'
+
+    //for deployment
+    provided "org.springframework.boot:spring-boot-starter-tomcat"
+
+    //for soap wsdl
+    compile 'org.grails.plugins:cxf-client:3.0.7'
+
 
 
     testCompile "org.grails:grails-gorm-testing-support"

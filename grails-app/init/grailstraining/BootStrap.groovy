@@ -117,6 +117,9 @@ class BootStrap {
             new Requestmap(url: '/jasper/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
             new Requestmap(url: '/jasperDemo/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
             new Requestmap(url: '/fieldTest/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/scaffoldTest/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/restDo/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
+            new Requestmap(url: '/restTest/**', configAttribute: 'ROLE_USER,ROLE_ADMIN').save(flush: true)
 
 
             //acl data
@@ -126,6 +129,12 @@ class BootStrap {
             AclObjectIdentity.findByObjectIdAndAclClass(1L,aclClass)?:new AclObjectIdentity(aclClass:aclClass,owner:aclSid,objectId: 1L,entriesInheriting:false).save(flush: true)
             AclObjectIdentity.findByObjectIdAndAclClass(2L,aclClass)?:new AclObjectIdentity(aclClass:aclClass,owner:aclSid,objectId: 2L,entriesInheriting:false).save(flush: true)
             AclObjectIdentity.findByObjectIdAndAclClass(3L,aclClass)?:new AclObjectIdentity(aclClass:aclClass,owner:aclSid,objectId: 3L,entriesInheriting:false).save(flush: true)
+
+            //reset data
+            RestTest restTest1 = RestTest.findByOrderNumber("000001") ?: new RestTest(orderNumber: "000001",firstName: "firstName1",lastName: "lastName1").save(flush: true)
+            RestTest restTest2 = RestTest.findByOrderNumber("000002") ?: new RestTest(orderNumber: "000002",firstName: "firstName2",lastName: "lastName2").save(flush: true)
+            Rest2Test rest2Test1 = Rest2Test.findByAddress("Ramallah") ?: new Rest2Test(address: "Ramallah",name: "name1").save(flush: true)
+            Rest2Test rest2Test2 = Rest2Test.findByAddress("Nablus") ?: new Rest2Test(address: "Nablus",name: "name2").save(flush: true)
 
         }
 

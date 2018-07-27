@@ -87,3 +87,31 @@ grails {
 }
 
 grails.plugin.fields.disableLookupCache = true
+
+
+
+
+
+//soap
+cxf {
+	client {
+
+		tempConvertClient {
+			wsdl = "https://www.w3schools.com/xml/tempconvert.asmx?WSDL"
+			serviceEndpointAddress = "https://www.w3schools.com/xml/tempconvert.asmx"
+			outputDir = "src/main/java"
+			namespace = "org.grails.cxf.soap.convert"
+			clientInterface = org.grails.cxf.soap.convert.TempConvertSoap
+		}
+
+		//you can put many clients
+	}
+}
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="resourceList"/>
     <title>Main Page</title>
 </head>
 <body>

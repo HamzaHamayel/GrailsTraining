@@ -5,6 +5,8 @@ import grails.converters.JSON
 import grails.converters.XML
 import grails.gorm.DetachedCriteria
 import groovy.sql.Sql
+import org.grails.cxf.soap.convert.TempConvertHttpPost
+import org.grails.cxf.soap.convert.TempConvertSoap
 import org.springframework.core.io.Resource
 import org.springframework.web.servlet.ModelAndView
 
@@ -559,6 +561,43 @@ class TestController {
         transaction.history = new TransactionHistory(createdBy: "created",lastUpdateBy: "updated")
 
         transaction.save()
+    }
+
+    def tempConvertClient
+    def testSoap = {
+        def res1 = tempConvertClient.celsiusToFahrenheit("2")
+        def res2 = tempConvertClient.fahrenheitToCelsius("40")
+        render "done with Fahrenheit: $res1 and Celsius: $res2"
+    }
+
+    def testRestJSON = {
+        //url will be like http://localhost:8080/restDo/1.json
+        redirect(uri: "/restDo/1.json")
+    }
+
+    def testRestXML = {
+        //url will be like http://localhost:8080/restDo/2.xml
+        redirect(uri: "/restDo/2.xml")
+    }
+
+    def testRestControllerJSON = {
+        //url will be like http://localhost:8080/restTest/1.json
+        redirect(uri: "/restTest/index.json")
+    }
+
+    def testRestControllerXML = {
+        //url will be like http://localhost:8080/restTest/2.xml
+        redirect(uri: "/restTest/index.xml")
+    }
+
+    def testRestShowControllerJSON = {
+        //url will be like http://localhost:8080/restTest/show/1.json
+        redirect(uri: "/restTest/show/1.json")
+    }
+
+    def testRestShowControllerXML = {
+        //url will be like http://localhost:8080/restTest/show/2.xml
+        redirect(uri: "/restTest/show/2.xml")
     }
 
 }

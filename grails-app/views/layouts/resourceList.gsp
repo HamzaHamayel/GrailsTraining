@@ -1,5 +1,5 @@
 
-<g:applyLayout name="main" >
+<g:applyLayout name="mainCustom" >
 
     <html>
     <head>
