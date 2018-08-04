@@ -28,6 +28,20 @@ class TestSpec extends Specification {
 
         then:
         value == "Test1"
+
+
+        when:
+        value = "Test2"
+
+        then:
+        value == "Test2"
+
+
+        when:
+        value = "Test3"
+
+        then:
+        value == "Test3"
     }
 }
 

@@ -29,7 +29,7 @@ class CountryController {
         }
     }
 
-    def create(){
+    def create = {
         respond new Country(params)
     }
 

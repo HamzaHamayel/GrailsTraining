@@ -36,8 +36,9 @@ environments {
 }
 
 //waiting {
+//    timeout = 30
 //    retryInterval = 0.5
-//    slow { timeout = 12 }
+//    slow { timeout = 20 }
 //    reallyslow { timeout = 24 }
 //}
 //baseNavigatorWaiting = true

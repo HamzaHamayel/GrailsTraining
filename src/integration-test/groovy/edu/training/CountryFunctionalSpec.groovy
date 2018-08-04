@@ -20,6 +20,14 @@ class CountryFunctionalSpec extends GebSpec {
     def cleanup() {
     }
 
+//    void 'test one'() {
+//        when: 'try to go to user list'
+//        go '/TrainingApplication/'
+//
+//        then: 'it is redirected to login page'
+//        title == "SB Admin 2 - Bootstrap Admin Theme"
+//    }
+
     void 'test login'() {
         when: 'try to go to user list'
         go '/TrainingApplication/userManagement/list'
@@ -33,4 +41,7 @@ class CountryFunctionalSpec extends GebSpec {
         then: 'he gets access to the user management page'
         at UserManagementPage
     }
+
+
+
 }

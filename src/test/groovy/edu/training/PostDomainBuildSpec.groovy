@@ -63,9 +63,9 @@ class PostDomainBuildSpec extends Specification implements BuildDomainTest<Post>
         post.errors.fieldErrors.find{it.field == "user" }.code == "nullable"
 
         when:
-        User user = User.build(username: "testUser")
-        post = Post.build(user:user,save:false)
-//        post = Post.build(save:false) //allow if config are found
+//        User user = User.build(username: "testUser")
+//        post = Post.build(user:user,save:false)
+        post = Post.build(save:false) //allow if config are found
         post.validate()
 
         then:

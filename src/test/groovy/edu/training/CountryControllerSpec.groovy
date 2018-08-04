@@ -7,6 +7,7 @@ import spock.lang.*
 
 
 class CountryControllerSpec extends Specification implements ControllerUnitTest<CountryController>, DomainUnitTest<Country> {
+
     def countryService = Mock(CountryService) {
         //save method
         save(_) >> { GrailsParameterMap params ->
@@ -89,8 +90,23 @@ class CountryControllerSpec extends Specification implements ControllerUnitTest<
         controller.create()
 
         then:"The model is correctly created"
-        model.country!= null
+        model.country != null
     }
+
+
+    void "Test the create action returns the correct model with params"() {
+        given:
+        params.code = "jo"
+
+        when:"The create action is executed"
+        controller.create(params)
+
+        then:"The model is correctly created"
+        model.country != null
+        model.country.code != null
+        model.country.code == "jo"
+    }
+
 
     void "Test the save action correctly persists"() {
         given:
@@ -105,6 +121,7 @@ class CountryControllerSpec extends Specification implements ControllerUnitTest<
         then:"A redirect is issued to the show action"
         response.redirectedUrl == '/country/list'
         controller.flash.message != null
+        controller.flash.message.contains("default.created.message") == true
     }
 
     void "Test the save action with an invalid params"() {

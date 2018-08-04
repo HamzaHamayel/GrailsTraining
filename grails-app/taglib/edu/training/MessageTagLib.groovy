@@ -36,6 +36,6 @@ class MessageTagLib implements TagLibrary{
      */
     Closure formatMessage = {  attrs   ->
         def message = attrs["message"]
-        out << """<div class="message" role="status">${message}</div> """;
+        out << """<div class="message" role="status">${message}</div>""";
     }
 }

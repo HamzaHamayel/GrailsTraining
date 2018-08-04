@@ -8,10 +8,6 @@ import spock.lang.Specification
 
 class PostDomainSpec extends Specification implements DomainUnitTest<Post> {
 
-    void setup() {
-        //reset counter in config
-        TestDataConfigurationHolder.reset()
-    }
 
     void "test post content blank"(){
         Post post
@@ -55,7 +51,7 @@ class PostDomainSpec extends Specification implements DomainUnitTest<Post> {
     void "test empty user"(){
         def post
         when:
-        post = new Post(user: null,save: false)
+        post = new Post(user: null)
         post.save()
 
         then:
