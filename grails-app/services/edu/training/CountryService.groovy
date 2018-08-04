@@ -2,7 +2,7 @@ package edu.training
 
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
-import grails.orm.PagedResultList
+import grails.gorm.PagedResultList
 import grails.web.servlet.mvc.GrailsParameterMap
 
 @Transactional

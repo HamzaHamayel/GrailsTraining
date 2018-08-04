@@ -18,7 +18,6 @@ class CountryController {
 
 
     def filter = {
-        println(params)
         render countryService.renderDataTableData(params)
     }
 

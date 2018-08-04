@@ -1,15 +1,17 @@
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.htmlunit.HtmlUnitDriver
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.firefox.FirefoxOptions
+
 
 environments {
 
-    // run via “./gradlew -Dgeb.env=chrome -Dwebdriver.chrome.driver=/Applications/chromedriver iT”
+    // run via “./gradlew -Dgeb.env=chrome iT”
     chrome {
         driver = { new ChromeDriver() }
     }
 
-    // run via “./gradlew -Dgeb.env=chromeHeadless -Dwebdriver.chrome.driver=/Applications/chromedriver iT”
+    // run via “./gradlew -Dgeb.env=chromeHeadless iT”
     chromeHeadless {
         driver = {
             ChromeOptions o = new ChromeOptions()
@@ -18,8 +20,25 @@ environments {
         }
     }
 
-    // run via “./gradlew -Dgeb.env=htmlUnit iT”
-    htmlUnit {
-        driver = { new HtmlUnitDriver() }
+    // run via “./gradlew -Dgeb.env=firefoxHeadless iT”
+    firefoxHeadless {
+        driver = {
+            FirefoxOptions o = new FirefoxOptions()
+            o.addArguments('-headless')
+            new FirefoxDriver(o)
+        }
+    }
+
+    // run via “./gradlew -Dgeb.env=firefox iT”
+    firefox {
+        driver = { new FirefoxDriver() }
     }
 }
+
+//waiting {
+//    retryInterval = 0.5
+//    slow { timeout = 12 }
+//    reallyslow { timeout = 24 }
+//}
+//baseNavigatorWaiting = true
+//atCheckWaiting = true

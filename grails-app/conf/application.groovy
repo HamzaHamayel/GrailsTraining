@@ -1,4 +1,44 @@
 
+//environment config
+environments {
+
+	development {
+		grails.plugin.springsecurity.securityConfigType = 'Requestmap'
+	}
+
+	test {
+//		grails.plugin.springsecurity.active = false
+		grails.plugin.springsecurity.securityConfigType = 'Annotation'
+
+
+		grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+				[pattern: '/',               access: ['permitAll']],
+				[pattern: '/error',          access: ['permitAll']],
+				[pattern: '/index',          access: ['permitAll']],
+				[pattern: '/index.gsp',      access: ['permitAll']],
+				[pattern: '/shutdown',       access: ['permitAll']],
+				[pattern: '/assets/**',      access: ['permitAll']],
+				[pattern: '/**/js/**',       access: ['permitAll']],
+				[pattern: '/**/css/**',      access: ['permitAll']],
+				[pattern: '/**/images/**',   access: ['permitAll']],
+				[pattern: '/login',   		 access: ['permitAll']],
+				[pattern: '/login.*',        access: ['permitAll']],
+				[pattern: '/login/*',        access: ['permitAll']],
+				[pattern: '/**/favicon.ico', access: ['permitAll']],
+				[pattern: '/**',             access: ['ROLE_TEST']],
+				[pattern: '/**/**',          access: ['ROLE_TEST']],
+
+		]
+
+
+	}
+
+	production {
+		grails.plugin.springsecurity.securityConfigType = 'Requestmap'
+	}
+
+}
+
 server.contextPath = '/TrainingApplication'
 server.port = 7075
 
@@ -17,7 +57,6 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'edu.training.secu
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'edu.training.security.UserRole'
 grails.plugin.springsecurity.authority.className = 'edu.training.security.Role'
 grails.plugin.springsecurity.requestMap.className = 'edu.training.security.Requestmap'
-grails.plugin.springsecurity.securityConfigType = 'Requestmap'
 
 //persistentToken
 grails.plugin.springsecurity.rememberMe.persistent = true
@@ -25,7 +64,7 @@ grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'edu.t
 
 //manual
 grails.plugin.springsecurity.rejectIfNoRule = true
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/user/list'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/userManagement/list'
 grails.plugin.springsecurity.logout.postOnly = false
 
 //password
@@ -40,18 +79,7 @@ grails.plugin.springsecurity.password.hash.iterations = 1
 
 //moved to data base
 
-//grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-//	[pattern: '/',               access: ['permitAll']],
-//	[pattern: '/error',          access: ['permitAll']],
-//	[pattern: '/index',          access: ['permitAll']],
-//	[pattern: '/index.gsp',      access: ['permitAll']],
-//	[pattern: '/shutdown',       access: ['permitAll']],
-//	[pattern: '/assets/**',      access: ['permitAll']],
-//	[pattern: '/**/js/**',       access: ['permitAll']],
-//	[pattern: '/**/css/**',      access: ['permitAll']],
-//	[pattern: '/**/images/**',   access: ['permitAll']],
-//	[pattern: '/**/favicon.ico', access: ['permitAll']]
-//]
+
 
 grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/assets/**',      filters: 'none'],

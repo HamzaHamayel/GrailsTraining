@@ -88,17 +88,16 @@ hibernate:
         queries: false
         use_second_level_cache: false
         use_query_cache: false
-dataSource:
-    pooled: true
-    jmxExport: true
-    dialect : org.hibernate.dialect.Oracle10gDialect
-    driverClassName: oracle.jdbc.OracleDriver
-    username: hamayel
-    password: hamayel
 
 environments:
     development:
         dataSource:
+            pooled: true
+            jmxExport: true
+            dialect : org.hibernate.dialect.Oracle10gDialect
+            driverClassName: oracle.jdbc.OracleDriver
+            username: hamayel
+            password: hamayel
             dbCreate: update
             url: jdbc:oracle:thin:@192.168.56.3:1521:orcl
             properties:
@@ -121,10 +120,21 @@ environments:
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
     test:
         dataSource:
+            pooled: true
+            jmxExport: true
+            driverClassName: org.h2.Driver
+            username: sa
+            password:
             dbCreate: update
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
+            pooled: true
+            jmxExport: true
+            dialect : org.hibernate.dialect.Oracle10gDialect
+            driverClassName: oracle.jdbc.OracleDriver
+            username: hamayel
+            password: hamayel
             dbCreate: update
             url: jdbc:oracle:thin:@192.168.56.3:1521:orcl
             properties:

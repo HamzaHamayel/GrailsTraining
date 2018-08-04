@@ -8,14 +8,26 @@ import edu.training.security.UserRole
 import grails.plugin.springsecurity.acl.AclClass
 import grails.plugin.springsecurity.acl.AclObjectIdentity
 import grails.plugin.springsecurity.acl.AclSid
+import grails.util.Environment
 
 class BootStrap {
 
     Boolean executeBootStrapData = true
 
     def init = { servletContext ->
+
+        if(Environment.current == Environment.TEST){
+            User testUser = User.findByUsername("test")?:new User(username:"test",password:"test").save(flush:true,failOnError:true)
+            //roles
+            Role testRole = Role.findByAuthority("ROLE_TEST")?:new Role(authority: "ROLE_TEST").save(flush:true,failOnError:true)
+
+            //assign admin users
+            UserRole.findByRoleAndUser(testRole,testUser)?:new UserRole(user:testUser,role: testRole).save(flush:true,failOnError:true)
+        }
+
+
         //added init data
-        if (executeBootStrapData) {
+        if (executeBootStrapData && Environment.current != Environment.TEST) {
             //country
             Country psCountry = Country.findByCode("ps")?:new Country(code: "ps",name: "Palestine").save(flush:true,failOnError:true)
             Country joCountry = Country.findByCode("jo")?:new Country(code: "jo",name: "Jordan").save(flush:true,failOnError:true)
